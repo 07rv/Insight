@@ -28,7 +28,7 @@ const Footer = () => {
         <div className="mx-auto w-full max-w-screen-xl p-4 md:py-8">
           <div className="sm:flex sm:items-center sm:justify-between">
             <Link href="/" className="w-28 dark:hidden">
-              <span className="block text-center font-Italianno text-4xl font-semibold">
+              <span className="block text-center font-Italianno text-5xl font-semibold">
                 Stablo
               </span>
             </Link>
@@ -42,7 +42,7 @@ const Footer = () => {
                 <li key={index}>
                   <a
                     href={item.href}
-                    className="mr-4  hover:text-blue-500 md:mr-6 "
+                    className="mr-4 text-lg  hover:text-blue-500 md:mr-6 "
                   >
                     {item.label}
                   </a>
