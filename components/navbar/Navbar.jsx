@@ -51,7 +51,7 @@ const Navbar = () => {
                         <Link
                           href={item.href}
                           key={`${item.label}${index}`}
-                          className="px-5 py-2 text-sm font-medium text-gray-600 hover:text-blue-500 dark:text-gray-400"
+                          className="px-5 py-2  font-medium text-gray-600 hover:text-blue-500 dark:text-gray-400"
                           target={item.external ? "_blank" : ""}
                           rel={item.external ? "noopener" : ""}
                         >
@@ -63,12 +63,12 @@ const Navbar = () => {
                 </div>
                 <div className="flex w-full items-center justify-between md:w-auto">
                   <Link href="/" className="w-28 dark:hidden">
-                    <span className="font-Italianno block text-center text-4xl font-semibold">
+                    <span className="block text-center font-Italianno text-5xl font-semibold">
                       Stablo
                     </span>
                   </Link>
                   <Link href="/" className="hidden w-28 dark:block">
-                    <span className="font-Italianno block text-center text-4xl font-semibold">
+                    <span className="block text-center font-Italianno text-5xl font-semibold">
                       Stablo
                     </span>
                   </Link>
@@ -111,7 +111,7 @@ const Navbar = () => {
                         <Link
                           href={item.href}
                           key={`${item.label}${index}`}
-                          className="px-5 py-2 text-sm font-medium text-gray-600 hover:text-blue-500 dark:text-gray-400"
+                          className="px-5 py-2  font-medium text-gray-600 hover:text-blue-500 dark:text-gray-400"
                           target={item.external ? "_blank" : ""}
                           rel={item.external ? "noopener" : ""}
                         >
