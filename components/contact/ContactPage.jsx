@@ -2,39 +2,15 @@
 
 import Container from "../Container";
 import { useState } from "react";
-import { useForm } from "react-hook-form";
 import useWeb3Forms from "@web3forms/react";
-import Link from "next/link";
-import Image from "next/image";
+
 import {
   MapPinIcon,
   EnvelopeIcon,
   PhoneIcon,
 } from "@heroicons/react/24/outline";
-import CategoryLabel from "@/components/blog/category";
 
 const ContactPage = () => {
-  const [isSuccess, setIsSuccess] = useState(false);
-  const [message, setMessage] = useState(false);
-  // Please update the Access Key in the Sanity CMS - Site Congig Page
-  const apiKey = settings?.w3ckey || "YOUR_ACCESS_KEY_HERE";
-
-  const { submit: onSubmit } = useWeb3Forms({
-    access_key: apiKey,
-    settings: {
-      from_name: "Stablo Template",
-      subject: "New Contact Message from Stablo Website",
-    },
-    onSuccess: (msg, data) => {
-      setIsSuccess(true);
-      setMessage(msg);
-      reset();
-    },
-    onError: (msg, data) => {
-      setIsSuccess(false);
-      setMessage(msg);
-    },
-  });
   return (
     <Container>
       <h1 className="text-brand-primary mb-3 mt-2 text-center text-3xl font-semibold tracking-tight dark:text-white lg:text-4xl lg:leading-snug">
@@ -59,28 +35,27 @@ const ContactPage = () => {
               <MapPinIcon className="h-4 w-4" />
               <span>1734 Sanfransico, CA 93063</span>
             </div>
-            {settings?.email && (
-              <div className="text-dark-600 mt-2 flex items-center space-x-2 dark:text-gray-400">
-                <EnvelopeIcon className="h-4 w-4" />
-                <a href={`mailto:${settings.email}`}>{settings.email}</a>
-              </div>
-            )}
-            {settings?.phone && (
-              <div className="text-dark-600 mt-2 flex items-center space-x-2 dark:text-gray-400">
-                <PhoneIcon className="h-4 w-4" />
-                <a href={`tel:${settings.phone}`}>{settings.phone}</a>
-              </div>
-            )}
+
+            <div className="text-dark-600 mt-2 flex items-center space-x-2 dark:text-gray-400">
+              <EnvelopeIcon className="h-4 w-4" />
+              <a
+                href={`mailto:${"28vrohit@gmail.com"}`}
+              >{`28vrohit@gmail.co`}</a>
+            </div>
+
+            <div className="text-dark-600 mt-2 flex items-center space-x-2 dark:text-gray-400">
+              <PhoneIcon className="h-4 w-4" />
+              <a href={`tel:${`8765432`}`}>{`8765432`}</a>
+            </div>
           </div>
         </div>
         <div>
-          <form onSubmit={handleSubmit(onSubmit)} className="my-10">
+          <form className="my-10">
             <input
               type="checkbox"
               id=""
               className="hidden"
               style={{ display: "none" }}
-              {...register("botcheck")}
             ></input>
 
             <div className="mb-5">
@@ -89,18 +64,14 @@ const ContactPage = () => {
                 placeholder="Full Name"
                 autoComplete="false"
                 className={`w-full rounded-md border-2 px-4 py-3 outline-none placeholder:text-gray-800 focus:ring-4 dark:bg-gray-900 dark:text-white   dark:placeholder:text-gray-200  ${
-                  errors.name
+                  true
                     ? "border-red-600 ring-red-100 focus:border-red-600 dark:ring-0"
                     : "border-gray-300 ring-gray-100 focus:border-gray-600 dark:border-gray-600 dark:ring-0 dark:focus:border-white"
                 }`}
-                {...register("name", {
-                  required: "Full name is required",
-                  maxLength: 80,
-                })}
               />
-              {errors.name && (
+              {true && (
                 <div className="mt-1 text-red-600">
-                  <small>{errors.name.message}</small>
+                  <small>{65432}</small>
                 </div>
               )}
             </div>
@@ -116,21 +87,14 @@ const ContactPage = () => {
                 name="email"
                 autoComplete="false"
                 className={`w-full rounded-md border-2 px-4 py-3 outline-none placeholder:text-gray-800 focus:ring-4 dark:bg-gray-900 dark:text-white   dark:placeholder:text-gray-200  ${
-                  errors.email
+                  true
                     ? "border-red-600 ring-red-100 focus:border-red-600 dark:ring-0"
                     : "border-gray-300 ring-gray-100 focus:border-gray-600 dark:border-gray-600 dark:ring-0 dark:focus:border-white"
                 }`}
-                {...register("email", {
-                  required: "Enter your email",
-                  pattern: {
-                    value: /^\S+@\S+$/i,
-                    message: "Please enter a valid email",
-                  },
-                })}
               />
-              {errors.email && (
+              {true && (
                 <div className="mt-1 text-red-600">
-                  <small>{errors.email.message}</small>
+                  <small>{`9876543245676543erfg`}</small>
                 </div>
               )}
             </div>
@@ -140,18 +104,15 @@ const ContactPage = () => {
                 name="message"
                 placeholder="Your Message"
                 className={`h-36 w-full rounded-md border-2 px-4 py-3 outline-none placeholder:text-gray-800   focus:ring-4 dark:bg-gray-900  dark:text-white dark:placeholder:text-gray-200  ${
-                  errors.message
+                  true
                     ? "border-red-600 ring-red-100 focus:border-red-600 dark:ring-0"
                     : "border-gray-300 ring-gray-100 focus:border-gray-600 dark:border-gray-600 dark:ring-0 dark:focus:border-white"
                 }`}
-                {...register("message", {
-                  required: "Enter your Message",
-                })}
               />
-              {errors.message && (
+              {true && (
                 <div className="mt-1 text-red-600">
                   {" "}
-                  <small>{errors.message.message}</small>
+                  <small>{`123456ygbdexvxrc`}</small>
                 </div>
               )}
             </div>
@@ -160,7 +121,7 @@ const ContactPage = () => {
               type="submit"
               className="w-full rounded-md bg-gray-900 px-7 py-4 font-semibold text-white transition-colors hover:bg-gray-800 focus:outline-none focus:ring focus:ring-gray-200 focus:ring-offset-2 dark:bg-white dark:text-black "
             >
-              {isSubmitting ? (
+              {false ? (
                 <svg
                   className="mx-auto h-5 w-5 animate-spin text-white dark:text-black"
                   xmlns="http://www.w3.org/2000/svg"
@@ -187,14 +148,14 @@ const ContactPage = () => {
             </button>
           </form>
 
-          {isSubmitSuccessful && isSuccess && (
+          {true && true && (
             <div className="mt-3 text-center text-sm text-green-500">
-              {message || "Success. Message sent successfully"}
+              {true || "Success. Message sent successfully"}
             </div>
           )}
-          {isSubmitSuccessful && !isSuccess && (
+          {true && !true && (
             <div className="mt-3 text-center text-sm text-red-500">
-              {message || "Something went wrong. Please try later."}
+              {true || "Something went wrong. Please try later."}
             </div>
           )}
         </div>
