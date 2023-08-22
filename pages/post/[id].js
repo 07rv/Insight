@@ -1,12 +1,12 @@
 import Footer from "@/components/footer/Footer";
 import Navbar from "@/components/navbar/Navbar";
-import Posts from "@/components/post/Posts";
+import Post from "@/components/post/Post";
 
-export default function Home() {
+export default function Page() {
   return (
     <>
       <Navbar />
-      <Posts />
+      <Post />
       <Footer />
     </>
   );
