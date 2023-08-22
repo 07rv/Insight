@@ -12,7 +12,7 @@ const ThemeSwitch = () => {
         value={theme}
         id="themeSwitch"
         onChange={(e) => setTheme(e.target.value)}
-        className="block w-64 rounded-lg border border-gray-300 bg-gray-50 p-2 text-base
+        className="block w-32 rounded-lg border border-gray-300 bg-gray-50 p-2 text-base
          text-gray-900 focus:border-blue-500
         focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700
         dark:text-white dark:placeholder-gray-400
