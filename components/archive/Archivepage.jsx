@@ -1,4 +1,4 @@
-import Container from "../Container";
+import Container from "../blog/Container";
 import PostList from "../post/PostList";
 
 const posts = [

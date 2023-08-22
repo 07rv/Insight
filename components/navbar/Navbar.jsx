@@ -2,7 +2,7 @@
 import { Fragment } from "react";
 import { Menu, Transition, Disclosure } from "@headlessui/react";
 
-import Container from "../Container";
+import Container from "../blog/Container";
 import Link from "next/link";
 import cx from "clsx";
 import { ChevronDownIcon } from "@heroicons/react/24/solid";

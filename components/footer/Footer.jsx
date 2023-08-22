@@ -1,4 +1,4 @@
-import Container from "../Container";
+import Container from "../blog/Container";
 import Link from "next/link";
 
 import ThemeSwitch from "@/utlities/ThemeSwitch";
