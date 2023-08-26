@@ -58,8 +58,20 @@ const SignUp = ({ setOpenTab }) => {
     return hasError;
   };
 
-  const submitButton = () => {
+  const submitButton = async () => {
     if (!checkAndSetValidationsErrors()) {
+      await fetch("/api/auth/signup", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(inputField),
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          if (data.status == 1) {
+            setOpenTab(1);
+          } else {
+          }
+        });
     }
   };
   return (

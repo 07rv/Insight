@@ -1,5 +1,7 @@
 import React from "react";
 import { useState } from "react";
+import { signIn } from "next-auth/react";
+import { useRouter } from "next/router";
 
 const SignIn = ({ setOpenTab }) => {
   const [inputField, setInputField] = useState({
@@ -10,7 +12,7 @@ const SignIn = ({ setOpenTab }) => {
     email: "",
     password: "",
   });
-
+  const router = useRouter();
   const inputHandler = (name, value) => {
     setInputField((prevState) => ({
       ...prevState,
@@ -44,8 +46,18 @@ const SignIn = ({ setOpenTab }) => {
     return hasError;
   };
 
-  const submitButton = () => {
+  const submitButton = async () => {
     if (!checkAndSetValidationsErrors()) {
+      const status = await signIn("credentials", {
+        redirect: false,
+        email: inputField.email,
+        password: inputField.password,
+        callbackUrl: "/",
+      });
+      if (status.ok) {
+        router.push(status.url);
+      } else {
+      }
     }
   };
   return (
