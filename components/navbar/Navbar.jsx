@@ -1,6 +1,8 @@
 "use client";
 import { Fragment } from "react";
 import { Menu, Transition, Disclosure } from "@headlessui/react";
+import { useSession } from "next-auth/react";
+import { signOut } from "next-auth/react";
 
 import Container from "../blog/Container";
 import Link from "next/link";
@@ -28,13 +30,10 @@ const Navbar = () => {
       label: "Contact",
       href: "/contact",
     },
-    {
-      label: "Login",
-      href: "/register",
-    },
   ];
 
   const mobilemenu = [...leftmenu, ...rightmenu];
+  const { data: session } = useSession();
   return (
     <Container>
       <nav>
@@ -129,6 +128,24 @@ const Navbar = () => {
                       )}
                     </Fragment>
                   ))}
+                  {session ? (
+                    <div
+                      onClick={(e) => {
+                        e.preventDefault();
+                        signOut();
+                      }}
+                      className="cursor-pointer px-5 py-2  font-medium text-gray-600 hover:text-blue-500 dark:text-gray-400 dark:hover:text-blue-500"
+                    >
+                      <span>Logout</span>
+                    </div>
+                  ) : (
+                    <Link
+                      href={"/register"}
+                      className="px-5 py-2  font-medium text-gray-600 hover:text-blue-500 dark:text-gray-400 dark:hover:text-blue-500"
+                    >
+                      <span>Login</span>
+                    </Link>
+                  )}
                 </div>
               </div>
               <Disclosure.Panel>
@@ -155,6 +172,24 @@ const Navbar = () => {
                       )}
                     </Fragment>
                   ))}
+                  {session ? (
+                    <div
+                      onClick={(e) => {
+                        e.preventDefault();
+                        signOut();
+                      }}
+                      className=" cursor-pointer w-full px-5 py-2 text-sm font-medium text-gray-600 hover:text-blue-500 dark:text-gray-400"
+                    >
+                      Logout
+                    </div>
+                  ) : (
+                    <Link
+                      href={"/register"}
+                      className="w-full px-5 py-2 text-sm font-medium text-gray-600 hover:text-blue-500 dark:text-gray-400"
+                    >
+                      Login
+                    </Link>
+                  )}
                 </div>
               </Disclosure.Panel>
             </>
