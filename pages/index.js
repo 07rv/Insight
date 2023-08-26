@@ -1,5 +1,4 @@
-import Footer from "@/components/footer/Footer";
-import Navbar from "@/components/navbar/Navbar";
+import Layout from "@/components/layout/Layout";
 import Posts from "@/components/post/Posts";
 import Head from "next/head";
 
@@ -10,9 +9,9 @@ export default function Home() {
         <title>Blog</title>
         <link rel="icon" href="/favicon.ico" sizes="any" />
       </Head>
-      <Navbar />
-      <Posts />
-      <Footer />
+      <Layout>
+        <Posts />
+      </Layout>
     </>
   );
 }

@@ -1,7 +1,6 @@
-import Footer from "@/components/footer/Footer";
-import Navbar from "@/components/navbar/Navbar";
 import Archivepage from "@/components/archive/Archivepage";
 import Head from "next/head";
+import Layout from "@/components/layout/Layout";
 
 export default function Archive() {
   return (
@@ -9,9 +8,9 @@ export default function Archive() {
       <Head>
         <title>Archive</title>
       </Head>
-      <Navbar />
-      <Archivepage />
-      <Footer />
+      <Layout>
+        <Archivepage />
+      </Layout>
     </>
   );
 }

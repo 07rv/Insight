@@ -1,7 +1,6 @@
-import Footer from "@/components/footer/Footer";
-import Navbar from "@/components/navbar/Navbar";
 import AboutPage from "@/components/about/AboutPage";
 import Head from "next/head";
+import Layout from "@/components/layout/Layout";
 
 export default function About() {
   return (
@@ -9,9 +8,9 @@ export default function About() {
       <Head>
         <title>About</title>
       </Head>
-      <Navbar />
-      <AboutPage />
-      <Footer />
+      <Layout>
+        <AboutPage />
+      </Layout>
     </>
   );
 }

@@ -1,5 +1,4 @@
-import Footer from "@/components/footer/Footer";
-import Navbar from "@/components/navbar/Navbar";
+import Layout from "@/components/layout/Layout";
 import Register from "@/components/register/Register";
 import Head from "next/head";
 
@@ -9,9 +8,9 @@ export default function Login() {
       <Head>
         <title>Login</title>
       </Head>
-      <Navbar />
-      <Register />
-      <Footer />
+      <Layout>
+        <Register />
+      </Layout>
     </>
   );
 }
