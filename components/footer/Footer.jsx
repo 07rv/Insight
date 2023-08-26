@@ -1,5 +1,7 @@
 import Container from "../blog/Container";
 import Link from "next/link";
+import { useSession } from "next-auth/react";
+import { signOut } from "next-auth/react";
 
 import ThemeSwitch from "@/utlities/ThemeSwitch";
 
@@ -22,6 +24,7 @@ const Footer = () => {
       href: "/contact",
     },
   ];
+  const { data: session } = useSession();
   return (
     <Container className="mt-10 border-t border-gray-100 dark:border-gray-800">
       <div className="mt-1 flex justify-center gap-1 text-center text-sm text-gray-500 dark:text-gray-600">
@@ -48,6 +51,28 @@ const Footer = () => {
                   </a>
                 </li>
               ))}
+              {session ? (
+                <li>
+                  <a
+                    onClick={(e) => {
+                      e.preventDefault();
+                      signOut();
+                    }}
+                    className="cursor-pointer mr-4 text-lg  hover:text-blue-500 md:mr-6 "
+                  >
+                    Logout
+                  </a>
+                </li>
+              ) : (
+                <li>
+                  <a
+                    href={"/register"}
+                    className="mr-4 text-lg  hover:text-blue-500 md:mr-6 "
+                  >
+                    Login
+                  </a>
+                </li>
+              )}
             </ul>
           </div>
           <div className=" mt-1 flex items-center justify-between ">
