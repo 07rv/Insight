@@ -9,7 +9,7 @@ const Register = () => {
       <div className="mx-auto flex flex-col items-center justify-center px-6">
         <div className="border-b border-gray-200 text-center text-sm font-medium text-gray-500 dark:border-gray-700 dark:text-gray-400">
           <ul className="-mb-px flex flex-wrap">
-            <li className="mr-2">
+            <li className="ml-2 mr-2">
               <a
                 onClick={(e) => {
                   e.preventDefault();
@@ -50,7 +50,7 @@ const Register = () => {
 
       <div className="flex flex-wrap">
         <div className="w-full">
-          <div className="relative mb-6 flex w-full min-w-0 flex-col break-words rounded bg-white ">
+          <div className="relative mb-6 flex w-full min-w-0 flex-col break-words rounded  ">
             <div className="flex-auto px-4">
               <div className="tab-content tab-space">
                 <div className={openTab === 1 ? "block" : "hidden"} id="link1">

@@ -27,6 +27,7 @@
     "clsx": "^2.0.0",
     "date-fns": "^2.30.0",
     "get-video-id": "^3.6.5",
+    "mongoose": "^7.4.5",
     "next": "^13.4.19",
     "next-sanity": "^5.4.4",
     "next-seo": "^6.1.0",
