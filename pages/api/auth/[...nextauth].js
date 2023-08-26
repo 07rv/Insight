@@ -27,7 +27,7 @@ export default NextAuth({
         }
         return {
           id: result._id,
-          name: result.fullname,
+          name: result.name,
           email: result.email,
         };
       },
