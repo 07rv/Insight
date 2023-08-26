@@ -21,6 +21,10 @@ const Footer = () => {
       label: "Contact",
       href: "/contact",
     },
+    {
+      label: "Login",
+      href: "/register",
+    },
   ];
   return (
     <Container className="mt-10 border-t border-gray-100 dark:border-gray-800">

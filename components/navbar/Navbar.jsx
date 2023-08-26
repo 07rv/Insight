@@ -28,6 +28,10 @@ const Navbar = () => {
       label: "Contact",
       href: "/contact",
     },
+    {
+      label: "Login",
+      href: "/register",
+    },
   ];
 
   const mobilemenu = [...leftmenu, ...rightmenu];
@@ -51,7 +55,7 @@ const Navbar = () => {
                         <Link
                           href={item.href}
                           key={`${item.label}${index}`}
-                          className="px-5 py-2  font-medium text-gray-600 hover:text-blue-500 dark:text-gray-400"
+                          className="hover:text-blue-500 px-5 py-2  font-medium text-gray-600  dark:text-gray-400 dark:hover:text-blue-500"
                           target={item.external ? "_blank" : ""}
                           rel={item.external ? "noopener" : ""}
                         >
@@ -74,7 +78,7 @@ const Navbar = () => {
                   </Link>
                   <Disclosure.Button
                     aria-label="Toggle Menu"
-                    className="ml-auto rounded-md px-2 py-1 text-gray-500 focus:text-blue-500 focus:outline-none dark:text-gray-300 md:hidden "
+                    className="ml-auto rounded-md px-2 py-1 text-gray-500 focus:text-blue-500 focus:outline-none dark:text-gray-300 md:hidden"
                   >
                     <svg
                       className="h-6 w-6 fill-current"
@@ -111,7 +115,7 @@ const Navbar = () => {
                         <Link
                           href={item.href}
                           key={`${item.label}${index}`}
-                          className="px-5 py-2  font-medium text-gray-600 hover:text-blue-500 dark:text-gray-400"
+                          className="px-5 py-2  font-medium text-gray-600 hover:text-blue-500 dark:text-gray-400 dark:hover:text-blue-500"
                           target={item.external ? "_blank" : ""}
                           rel={item.external ? "noopener" : ""}
                         >

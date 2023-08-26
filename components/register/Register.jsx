@@ -54,10 +54,10 @@ const Register = () => {
             <div className="flex-auto px-4">
               <div className="tab-content tab-space">
                 <div className={openTab === 1 ? "block" : "hidden"} id="link1">
-                  <SignIn />
+                  <SignIn setOpenTab={setOpenTab} />
                 </div>
                 <div className={openTab === 2 ? "block" : "hidden"} id="link2">
-                  <SignUp />
+                  <SignUp setOpenTab={setOpenTab} />
                 </div>
               </div>
             </div>
