@@ -1,7 +1,7 @@
 import React from "react";
 
 const CreatePost = () => {
-  return <div>CreatePost</div>;
+  return <>efv</>;
 };
 
 export default CreatePost;
