@@ -18,10 +18,12 @@ const CreatePost = () => {
   const [content, setContent] = useState("");
   const [file, setFile] = useState("");
   const [fileUrl, setfileUrl] = useState("");
+  const [category, setCategory] = useState("");
   const [errorField, setErrorField] = useState({
     title: "",
     content: "",
     file: "",
+    category: "",
   });
 
   const router = useRouter();
@@ -47,6 +49,9 @@ const CreatePost = () => {
       setErrorMessage("content", "Enter content");
       hasError = true;
     }
+    if (category === "") {
+      setErrorMessage("category", "Choose Category");
+    }
     return hasError;
   };
 
@@ -62,6 +67,7 @@ const CreatePost = () => {
               title: title,
               content: content,
               cover: downloadURL,
+              category: category,
               email: session?.user?.email,
             }),
             headers: { "Content-Type": "application/json" },
@@ -105,6 +111,27 @@ const CreatePost = () => {
               {errorField && errorField.title && (
                 <div className="mt-1 text-red-600">
                   <small>{errorField.title}</small>
+                </div>
+              )}
+            </div>
+            <div className="mb-6">
+              <select
+                id="category"
+                value={category}
+                onChange={(e) => {
+                  setCategory(e.target.value);
+                }}
+                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              >
+                {options.map((option) => (
+                  <option key={option.value} value={option.value}>
+                    {option.label}
+                  </option>
+                ))}
+              </select>
+              {errorField && errorField.category && (
+                <div className="mt-1 text-red-600">
+                  <small>{errorField.category}</small>
                 </div>
               )}
             </div>
@@ -199,3 +226,9 @@ const CreatePost = () => {
 };
 
 export default CreatePost;
+
+const options = [
+  { value: "option1", label: "Option 1" },
+  { value: "option2", label: "Option 2" },
+  { value: "option3", label: "Option 3" },
+];
