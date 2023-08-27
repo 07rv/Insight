@@ -9,7 +9,7 @@ export default async function handler(req, res) {
       res.status(404).json({ status: 0, error: "Don't have body" });
 
     try {
-      const { title, content, cover, email } = req.body;
+      const { title, content, cover, email, category } = req.body;
       const checkingexisting = await Users.findOne({ email });
 
       if (!checkingexisting)
@@ -19,7 +19,7 @@ export default async function handler(req, res) {
           title,
           content,
           cover,
-          category: ["color", "blog"],
+          category: [category],
           author: checkingexisting._id,
         });
         newpost.save();

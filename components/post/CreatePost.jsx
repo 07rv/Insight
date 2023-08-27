@@ -1,6 +1,6 @@
 import "react-quill/dist/quill.snow.css";
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { storage } from "@/database/firebase";
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 import { v4 as uuid } from "uuid";
@@ -19,6 +19,7 @@ const CreatePost = () => {
   const [file, setFile] = useState("");
   const [fileUrl, setfileUrl] = useState("");
   const [category, setCategory] = useState("");
+  const [options, setOptions] = useState([]);
   const [errorField, setErrorField] = useState({
     title: "",
     content: "",
@@ -26,6 +27,19 @@ const CreatePost = () => {
     category: "",
   });
 
+  useEffect(() => {
+    fetch(`/api/category`, {
+      method: "GET",
+      headers: { "Content-Type": "application/json" },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.status == 1) {
+          setOptions(data.categories);
+        } else {
+        }
+      });
+  }, []);
   const router = useRouter();
   const { data: session } = useSession();
   const setErrorMessage = (name, value) => {
@@ -124,7 +138,7 @@ const CreatePost = () => {
                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               >
                 {options.map((option) => (
-                  <option key={option.value} value={option.value}>
+                  <option key={option._id} value={option.value}>
                     {option.label}
                   </option>
                 ))}
@@ -226,9 +240,3 @@ const CreatePost = () => {
 };
 
 export default CreatePost;
-
-const options = [
-  { value: "option1", label: "Option 1" },
-  { value: "option2", label: "Option 2" },
-  { value: "option3", label: "Option 3" },
-];
