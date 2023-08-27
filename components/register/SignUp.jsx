@@ -88,10 +88,7 @@ const SignUp = ({ setOpenTab }) => {
           </h1>
           <div className="space-y-4 md:space-y-6" action="#">
             <div>
-              <label
-                for="email"
-                className="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
-              >
+              <label className="mb-2 block text-sm font-medium text-gray-900 dark:text-white">
                 Email
               </label>
               <input
@@ -110,10 +107,7 @@ const SignUp = ({ setOpenTab }) => {
               )}
             </div>
             <div>
-              <label
-                for="name"
-                className="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
-              >
+              <label className="mb-2 block text-sm font-medium text-gray-900 dark:text-white">
                 Name
               </label>
               <input
@@ -131,10 +125,7 @@ const SignUp = ({ setOpenTab }) => {
               )}
             </div>
             <div>
-              <label
-                for="password"
-                className="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
-              >
+              <label className="mb-2 block text-sm font-medium text-gray-900 dark:text-white">
                 Password
               </label>
               <input
@@ -153,10 +144,7 @@ const SignUp = ({ setOpenTab }) => {
               )}
             </div>
             <div>
-              <label
-                for="password"
-                className="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
-              >
+              <label className="mb-2 block text-sm font-medium text-gray-900 dark:text-white">
                 Confirm Pasword
               </label>
               <input
@@ -186,10 +174,7 @@ const SignUp = ({ setOpenTab }) => {
                   />
                 </div>
                 <div className="ml-3 text-sm">
-                  <label
-                    for="remember"
-                    className="text-gray-500 dark:text-gray-300"
-                  >
+                  <label className="text-gray-500 dark:text-gray-300">
                     Remember me
                   </label>
                 </div>
