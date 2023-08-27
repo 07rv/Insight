@@ -35,10 +35,12 @@ const SignIn = ({ setOpenTab }) => {
     Object.keys(inputField).map((field) => {
       if (field === "email") {
         if (inputField[field] === "") {
+          hasError = true;
           setErrorMessage(field, "Please enter emailId");
         }
       } else if (field === "password") {
         if (inputField[field] === "") {
+          hasError = true;
           setErrorMessage(field, "Please enter password");
         }
       }

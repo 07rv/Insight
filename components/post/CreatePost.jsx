@@ -9,11 +9,9 @@ const Editor = dynamic(
   { ssr: false }
 );
 const CreatePost = () => {
-  const [inputField, setInputField] = useState({
-    title: "",
-    content: "",
-    file: "",
-  });
+  const [title, setTitle] = useState("");
+  const [content, setContent] = useState("");
+  const [file, setFile] = useState("");
   const [errorField, setErrorField] = useState({
     title: "",
     content: "",
@@ -31,29 +29,22 @@ const CreatePost = () => {
 
   const checkAndSetValidationsErrors = () => {
     var hasError = false;
-    Object.keys(inputField).map((field) => {
-      if (field === "title") {
-        if (inputField[field] === "") {
-          setErrorMessage(field, "Please enter title");
-        }
-      } else if (field === "content") {
-        if (inputField[field] === "") {
-          setErrorMessage(field, "Please enter content");
-        }
-      } else if (field === "file") {
-        if (inputField[field] === "") {
-          setErrorMessage(field, "Please choose file");
-        }
-      }
-    });
+    if (title === "") {
+      setErrorField({ title: "Enter Title" });
+      hasError = true;
+    } else if (file === "") {
+      setErrorField({ file: "Choose file" });
+      hasError = true;
+    } else if (content === "") {
+      setErrorField({ content: "Enter content" });
+      hasError = true;
+    }
     return hasError;
   };
 
   const submitButton = async () => {
     if (!checkAndSetValidationsErrors()) {
       console.log(12345678987654);
-    } else {
-      console.log(errorField.title, 765432);
     }
   };
   return (
@@ -78,10 +69,10 @@ const CreatePost = () => {
                 rows="3"
                 class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg shadow-sm border border-gray-300 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                 placeholder="title..."
-                defaultValue={inputField.title}
+                defaultValue={title}
                 onChange={(ev) => {
                   setErrorField({ title: "" });
-                  setInputField({ title: ev.target.value });
+                  setTitle(ev.target.value);
                 }}
               />
               {errorField && errorField.title && (
@@ -123,11 +114,9 @@ const CreatePost = () => {
                       id="file"
                       onChange={(ev) => {
                         setErrorField({ file: "" });
-                        setInputField({
-                          file: URL.createObjectURL(ev.target.files[0]),
-                        });
+                        setFile(URL.createObjectURL(ev.target.files[0]));
                       }}
-                      defaultValue={inputField.file}
+                      defaultValue={file}
                       type="file"
                       class="hidden"
                     />
@@ -136,10 +125,10 @@ const CreatePost = () => {
               </div>
               <div class="relative z-0 w-full mb-6 group">
                 <div class="flex items-center justify-center w-full">
-                  {inputField.file ? (
+                  {file ? (
                     <img
                       class="object-fill h-32 w-50 max-w-lg rounded-lg"
-                      src={inputField.file}
+                      src={file}
                       alt="image description"
                     />
                   ) : (
@@ -160,8 +149,8 @@ const CreatePost = () => {
 
             <div class="mb-6">
               <Editor
-                value={inputField.content}
-                setInputField={setInputField}
+                value={content}
+                setContent={setContent}
                 setErrorField={setErrorField}
               />
               {errorField && errorField.content && (

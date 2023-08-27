@@ -1,6 +1,6 @@
 import ReactQuill from "react-quill";
 
-const Editor = ({ value, setInputField, setErrorField }) => {
+const Editor = ({ value, setContent, setErrorField }) => {
   const modules = {
     toolbar: [
       [{ header: [1, 2, 3, 4, 5, false] }],
@@ -39,7 +39,8 @@ const Editor = ({ value, setInputField, setErrorField }) => {
         value={value}
         theme={"snow"}
         onChange={(ev) => {
-          setInputField({ content: ev });
+          setContent(ev);
+          setErrorField({ content: "" });
         }}
         modules={modules}
         formats={formats}
