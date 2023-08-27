@@ -1,6 +1,10 @@
 import "react-quill/dist/quill.snow.css";
 import { useRouter } from "next/router";
 import { useState } from "react";
+import { storage } from "@/database/firebase";
+import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
+import { v4 as uuid } from "uuid";
+
 import dynamic from "next/dynamic";
 const Editor = dynamic(
   () => {
@@ -12,6 +16,7 @@ const CreatePost = () => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [file, setFile] = useState("");
+  const [fileUrl, setfileUrl] = useState("");
   const [errorField, setErrorField] = useState({
     title: "",
     content: "",
@@ -46,6 +51,28 @@ const CreatePost = () => {
 
   const submitButton = async () => {
     if (!checkAndSetValidationsErrors()) {
+      const fileName = `posts/${uuid()}.${file.name.split(".").pop()}`;
+      const storageRef = ref(storage, `posts/${fileName}`);
+      uploadBytesResumable(storageRef, file).then((snapshot) => {
+        getDownloadURL(snapshot.ref).then(async (downloadURL) => {
+          await fetch("/api/post", {
+            method: "POST",
+            body: JSON.stringify({
+              title: title,
+              content: content,
+              cover: downloadURL,
+            }),
+            headers: { "Content-Type": "application/json" },
+          })
+            .then((res) => res.json())
+            .then((data) => {
+              if (data.status == 1) {
+                router.push("/");
+              } else {
+              }
+            });
+        });
+      });
     }
   };
   return (
@@ -109,9 +136,10 @@ const CreatePost = () => {
                       id="file"
                       onChange={(ev) => {
                         setErrorField({ file: "" });
-                        setFile(URL.createObjectURL(ev.target.files[0]));
+                        setfileUrl(URL.createObjectURL(ev.target.files[0]));
+                        setFile(ev.target.files[0]);
                       }}
-                      defaultValue={file}
+                      defaultValue={fileUrl}
                       type="file"
                       className="hidden"
                     />
@@ -120,10 +148,10 @@ const CreatePost = () => {
               </div>
               <div className="relative z-0 w-full mb-6 group">
                 <div className="flex items-center justify-center w-full">
-                  {file ? (
+                  {fileUrl ? (
                     <img
                       className="object-fill h-32 w-50 max-w-lg rounded-lg"
-                      src={file}
+                      src={fileUrl}
                       alt="image description"
                     />
                   ) : (

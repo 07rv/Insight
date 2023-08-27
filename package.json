@@ -46,7 +46,8 @@
     "sanity-plugin-asset-source-unsplash": "^1.1.0",
     "styled-components": "^6.0.7",
     "swr": "^2.2.1",
-    "typescript": "^5.1.6"
+    "typescript": "^5.1.6",
+    "uuid": "^9.0.0"
   },
   "devDependencies": {
     "autoprefixer": "^10.4.15",
