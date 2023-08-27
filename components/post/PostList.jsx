@@ -53,11 +53,11 @@ const PostList = ({
                 ? "aspect-[5/4]"
                 : "aspect-square"
             )}
-            href={`/post/architectural-engineering-wonders-of-the-modern-era-for-your-inspiration`}
+            href={`/post?id=${post._id}`}
           >
-            {true ? (
+            {post.cover ? (
               <Image
-                src={"/img/pic.avif"}
+                src={post.cover}
                 alt={"Thumbnail"}
                 priority={preloadImage ? true : false}
                 className="object-cover transition-all"
@@ -87,7 +87,7 @@ const PostList = ({
                 "mt-2    dark:text-white"
               )}
             >
-              <Link href={`/post`}>
+              <Link href={`/post?=${post._id}`}>
                 <span
                   className="bg-gradient-to-r  bg-[length:0px_10px] bg-left-bottom
                   bg-no-repeat
@@ -97,7 +97,7 @@ const PostList = ({
                   group-hover:bg-[length:100%_10px]
                  "
                 >
-                  {`Architectural Engineering Wonders of the modern era for your Inspiration`}
+                  {post.title}
                 </span>
               </Link>
             </h2>
@@ -105,7 +105,7 @@ const PostList = ({
               <Link href={`/author`}>
                 <div className="flex items-center gap-3">
                   <div className="relative h-5 w-5 flex-shrink-0">
-                    {true && (
+                    {post.author.img ? (
                       <Image
                         src={`/img/pic.avif`}
                         alt={"author"}
@@ -113,16 +113,18 @@ const PostList = ({
                         fill
                         sizes="20px"
                       />
+                    ) : (
+                      <PhotoIcon />
                     )}
                   </div>
-                  <span className="truncate text-sm">{`Rohit`}</span>
+                  <span className="truncate text-sm">{post.author.name}</span>
                 </div>
               </Link>
               <span className="text-xs text-gray-300 dark:text-gray-600">
                 &bull;
               </span>
-              <time className="truncate text-sm" dateTime={`2008-02-14 20:00`}>
-                {format(parseISO(`2008-02-14 20:00`), "MMMM dd, yyyy")}
+              <time className="truncate text-sm" dateTime={post.createdAt}>
+                {format(parseISO(post.createdAt), "MMMM dd, yyyy")}
               </time>
             </div>
           </div>

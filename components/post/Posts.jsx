@@ -1,47 +1,40 @@
 import Container from "../blog/Container";
 import Link from "next/link";
 import PostList from "./PostList";
-
-const posts = [
-  {
-    id: 1,
-  },
-  {
-    id: 1,
-  },
-  {
-    id: 1,
-  },
-  {
-    id: 1,
-  },
-  {
-    id: 1,
-  },
-  {
-    id: 1,
-  },
-  {
-    id: 1,
-  },
-  {
-    id: 1,
-  },
-];
+import { useState, useEffect } from "react";
 
 const Posts = () => {
+  const [posts, setPosts] = useState([]);
+  useEffect(() => {
+    fetch(`/api/post`, {
+      method: "GET",
+      headers: { "Content-Type": "application/json" },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.status == 1) {
+          setPosts(data.posts);
+        } else {
+        }
+      });
+  }, []);
   return (
     <>
       {posts && (
         <Container>
           <div className="grid gap-10 md:grid-cols-2 lg:gap-10 ">
             {posts.slice(0, 2).map((post, index) => (
-              <PostList key={index} aspect="landscape" preloadImage={true} />
+              <PostList
+                post={post}
+                key={index}
+                aspect="landscape"
+                preloadImage={true}
+              />
             ))}
           </div>
           <div className="mt-10 grid gap-10 md:grid-cols-2 lg:gap-10 xl:grid-cols-3 ">
             {posts.slice(2, 14).map((post, index) => (
-              <PostList key={index} aspect="square" />
+              <PostList post={post} key={index} aspect="square" />
             ))}
           </div>
           <div className="mt-10 flex justify-center">

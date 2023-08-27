@@ -4,7 +4,17 @@ import Posts from "@/modal/Post";
 
 export default async function handler(req, res) {
   await dbConnect();
-  if (req.method === "POST") {
+  if (req.method === "GET") {
+    try {
+      const posts = await Posts.find()
+        .populate("author", ["email", "name"])
+        .sort({ createdAt: -1 })
+        .limit(10);
+      res.status(200).json({ status: 1, posts: posts });
+    } catch (error) {
+      res.status(500).json({ status: 0, error: error });
+    }
+  } else if (req.method === "POST") {
     if (!req.body)
       res.status(404).json({ status: 0, error: "Don't have body" });
 
