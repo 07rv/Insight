@@ -63,11 +63,13 @@ const CreatePost = () => {
                 </div>
               </div>
               <div class="relative z-0 w-full mb-6 group">
-                <img
-                  class="h-32 max-w-lg rounded-lg"
-                  src="/img/pic.avif"
-                  alt="image description"
-                />
+                <div class="flex items-center justify-center w-full">
+                  <img
+                    class="h-32 max-w-lg rounded-lg"
+                    src="/img/pic.avif"
+                    alt="image description"
+                  />
+                </div>
               </div>
             </div>
 
