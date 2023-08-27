@@ -30,13 +30,15 @@ const CreatePost = () => {
   const checkAndSetValidationsErrors = () => {
     var hasError = false;
     if (title === "") {
-      setErrorField({ title: "Enter Title" });
+      setErrorMessage("title", "Enter title");
       hasError = true;
-    } else if (file === "") {
-      setErrorField({ file: "Choose file" });
+    }
+    if (file === "") {
+      setErrorMessage("file", "Choose file");
       hasError = true;
-    } else if (content === "") {
-      setErrorField({ content: "Enter content" });
+    }
+    if (content === "") {
+      setErrorMessage("content", "Enter content");
       hasError = true;
     }
     return hasError;
@@ -44,7 +46,6 @@ const CreatePost = () => {
 
   const submitButton = async () => {
     if (!checkAndSetValidationsErrors()) {
-      console.log(12345678987654);
     }
   };
   return (
