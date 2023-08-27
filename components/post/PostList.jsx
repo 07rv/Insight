@@ -73,7 +73,7 @@ const PostList = ({
         </div>
         <div className={cx(minimal && "flex items-center")}>
           <div>
-            <Category categories={categories} nomargin={minimal} />
+            <Category categories={post.category} nomargin={minimal} />
             <h2
               className={cx(
                 fontSize === "large"
@@ -107,7 +107,7 @@ const PostList = ({
                   <div className="relative h-5 w-5 flex-shrink-0">
                     {post.author.img ? (
                       <Image
-                        src={`/img/pic.avif`}
+                        src={post.author.img}
                         alt={"author"}
                         className="rounded-full object-cover"
                         fill
