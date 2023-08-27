@@ -64,11 +64,19 @@ const CreatePost = () => {
               </div>
               <div class="relative z-0 w-full mb-6 group">
                 <div class="flex items-center justify-center w-full">
-                  <img
-                    class="h-32 max-w-lg rounded-lg"
-                    src="/img/pic.avif"
-                    alt="image description"
-                  />
+                  {false ? (
+                    <img
+                      class="h-32 max-w-lg rounded-lg"
+                      src="/img/pic.avif"
+                      alt="image description"
+                    />
+                  ) : (
+                    <img
+                      class="h-32 max-w-lg rounded-lg"
+                      src="/img/preview.jpeg"
+                      alt="image description"
+                    />
+                  )}
                 </div>
               </div>
             </div>
