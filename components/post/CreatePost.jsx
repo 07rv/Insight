@@ -4,6 +4,7 @@ import { useState } from "react";
 import { storage } from "@/database/firebase";
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 import { v4 as uuid } from "uuid";
+import { useSession } from "next-auth/react";
 
 import dynamic from "next/dynamic";
 const Editor = dynamic(
@@ -24,7 +25,7 @@ const CreatePost = () => {
   });
 
   const router = useRouter();
-
+  const { data: session } = useSession();
   const setErrorMessage = (name, value) => {
     setErrorField((prevState) => ({
       ...prevState,
@@ -61,6 +62,7 @@ const CreatePost = () => {
               title: title,
               content: content,
               cover: downloadURL,
+              email: session?.user?.email,
             }),
             headers: { "Content-Type": "application/json" },
           })
