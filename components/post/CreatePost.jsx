@@ -1,5 +1,6 @@
 import "react-quill/dist/quill.snow.css";
-
+import { useRouter } from "next/router";
+import { useState } from "react";
 import dynamic from "next/dynamic";
 const Editor = dynamic(
   () => {
@@ -8,6 +9,53 @@ const Editor = dynamic(
   { ssr: false }
 );
 const CreatePost = () => {
+  const [inputField, setInputField] = useState({
+    title: "",
+    content: "",
+    file: "",
+  });
+  const [errorField, setErrorField] = useState({
+    title: "",
+    content: "",
+    file: "",
+  });
+
+  const router = useRouter();
+
+  const setErrorMessage = (name, value) => {
+    setErrorField((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
+  };
+
+  const checkAndSetValidationsErrors = () => {
+    var hasError = false;
+    Object.keys(inputField).map((field) => {
+      if (field === "title") {
+        if (inputField[field] === "") {
+          setErrorMessage(field, "Please enter title");
+        }
+      } else if (field === "content") {
+        if (inputField[field] === "") {
+          setErrorMessage(field, "Please enter content");
+        }
+      } else if (field === "file") {
+        if (inputField[field] === "") {
+          setErrorMessage(field, "Please choose file");
+        }
+      }
+    });
+    return hasError;
+  };
+
+  const submitButton = async () => {
+    if (!checkAndSetValidationsErrors()) {
+      console.log(12345678987654);
+    } else {
+      console.log(errorField.title, 765432);
+    }
+  };
   return (
     <>
       <section class="bg-white dark:bg-gray-900">
@@ -21,20 +69,32 @@ const CreatePost = () => {
                 for="email"
                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
               >
-                Email address
+                Title
               </label>
               <textarea
-                id="text"
+                type="text"
+                name="title"
+                id="title"
                 rows="3"
                 class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg shadow-sm border border-gray-300 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                placeholder="Leave a comment..."
+                placeholder="title..."
+                defaultValue={inputField.title}
+                onChange={(ev) => {
+                  setErrorField({ title: "" });
+                  setInputField({ title: ev.target.value });
+                }}
               />
+              {errorField && errorField.title && (
+                <div className="mt-1 text-red-600">
+                  <small>{errorField.title}</small>
+                </div>
+              )}
             </div>
             <div class="grid md:grid-cols-2 md:gap-6">
               <div class="relative z-0 w-full mb-6 group ">
                 <div class="flex items-center justify-center w-full">
                   <label
-                    for="dropzone-file"
+                    for="file"
                     class="flex flex-col items-center justify-center w-full h-32 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 "
                   >
                     <div class="flex flex-col items-center justify-center pt-5 pb-6">
@@ -58,35 +118,61 @@ const CreatePost = () => {
                         drag and drop
                       </p>
                     </div>
-                    <input id="dropzone-file" type="file" class="hidden" />
+                    <input
+                      name="file"
+                      id="file"
+                      onChange={(ev) => {
+                        setErrorField({ file: "" });
+                        setInputField({
+                          file: URL.createObjectURL(ev.target.files[0]),
+                        });
+                      }}
+                      defaultValue={inputField.file}
+                      type="file"
+                      class="hidden"
+                    />
                   </label>
                 </div>
               </div>
               <div class="relative z-0 w-full mb-6 group">
                 <div class="flex items-center justify-center w-full">
-                  {false ? (
+                  {inputField.file ? (
                     <img
-                      class="h-32 max-w-lg rounded-lg"
-                      src="/img/pic.avif"
+                      class="object-fill h-32 w-50 max-w-lg rounded-lg"
+                      src={inputField.file}
                       alt="image description"
                     />
                   ) : (
                     <img
-                      class="h-32 max-w-lg rounded-lg"
+                      class="h-32 w-50 max-w-lg rounded-lg"
                       src="/img/preview.jpeg"
                       alt="image description"
                     />
                   )}
                 </div>
+                {errorField && errorField.file && (
+                  <div className="mt-1 text-red-600">
+                    <small>{errorField.file}</small>
+                  </div>
+                )}
               </div>
             </div>
 
             <div class="mb-6">
-              <Editor />
+              <Editor
+                value={inputField.content}
+                setInputField={setInputField}
+                setErrorField={setErrorField}
+              />
+              {errorField && errorField.content && (
+                <div className="mt-1 text-red-600">
+                  <small>{errorField.content}</small>
+                </div>
+              )}
             </div>
 
             <button
-              type="submit"
+              onClick={submitButton}
               class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
             >
               Create
