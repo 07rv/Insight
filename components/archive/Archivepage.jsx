@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 import Container from "../blog/Container";
 import PostList from "../post/PostList";
 
@@ -17,6 +18,23 @@ const posts = [
 ];
 
 const Archivepage = () => {
+  const [isLoading, setIsLoading] = useState(true);
+  const [isLastPage, setIsLastpage] = useState(false);
+  const [posts, setPosts] = useState([]);
+  useEffect(() => {
+    fetch(`/api/post`, {
+      method: "GET",
+      headers: { "Content-Type": "application/json" },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.status == 1) {
+          setIsLoading(false);
+          setPosts(data.posts);
+        } else {
+        }
+      });
+  }, []);
   return (
     <Container>
       <h1 className="text-center text-3xl font-semibold tracking-tight dark:text-white lg:text-4xl lg:leading-snug">
@@ -25,12 +43,12 @@ const Archivepage = () => {
       <div className="text-center">
         <p className="mt-2 text-lg">See all posts we have ever written.</p>
       </div>
-      {false && (
+      {isLastPage && (
         <div className="flex h-40 items-center justify-center">
           <span className="text-lg text-gray-500">End of the result!</span>
         </div>
       )}
-      {false && (
+      {isLoading ? (
         <div className="mt-10 grid gap-10 md:grid-cols-2 lg:gap-10 xl:grid-cols-3">
           {new Array(6).fill().map((item, index) => (
             <div key={index}>
@@ -38,14 +56,14 @@ const Archivepage = () => {
             </div>
           ))}
         </div>
-      )}
-      {true && (
+      ) : (
         <div className="mt-10 grid gap-10 md:grid-cols-2 lg:gap-10 xl:grid-cols-3">
           {posts.map((post) => (
             <PostList key={post.id} post={post} aspect="square" />
           ))}
         </div>
       )}
+
       <div className="mt-10 flex items-center justify-center">
         <nav
           className="isolate inline-flex -space-x-px rounded-md shadow-sm"

@@ -6,7 +6,7 @@ import { useState, useEffect } from "react";
 const Posts = () => {
   const [posts, setPosts] = useState([]);
   useEffect(() => {
-    fetch(`/api/post`, {
+    fetch(`/api/post?limit=10`, {
       method: "GET",
       headers: { "Content-Type": "application/json" },
     })
