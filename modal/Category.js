@@ -5,10 +5,16 @@ const CategorySchema = new Schema({
   value: {
     type: String,
     require: true,
+    unique: true,
   },
   label: {
     type: String,
     require: true,
+    unique: true,
+  },
+  color: {
+    type: String,
+    default: "blue",
   },
 });
 

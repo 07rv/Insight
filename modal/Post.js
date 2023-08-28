@@ -5,10 +5,7 @@ const PostSchema = new Schema({
   cover: {
     type: String,
   },
-  category: {
-    type: [String],
-    required: true,
-  },
+  category: [{ type: Schema.Types.ObjectId, ref: "Category" }],
   content: {
     type: String,
     required: true,

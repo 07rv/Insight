@@ -1,6 +1,7 @@
 import dbConnect from "@/database/mongodb";
 import Users from "@/modal/User";
 import Posts from "@/modal/Post";
+import Category from "@/modal/Category";
 
 export default async function handler(req, res) {
   await dbConnect();
@@ -8,6 +9,7 @@ export default async function handler(req, res) {
     try {
       const posts = await Posts.find()
         .populate("author", ["email", "name"])
+        .populate("category", ["value", "label", "color"])
         .sort({ createdAt: -1 })
         .limit(10);
       res.status(200).json({ status: 1, posts: posts });
@@ -25,17 +27,17 @@ export default async function handler(req, res) {
       if (!checkingexisting)
         res.status(422).json({ status: 0, error: "Please register first" });
       else {
+        const postCategory = await Category.findOne({ _id: category });
         const newpost = new Posts({
           title,
           content,
           cover,
-          category: [category],
+          category: [postCategory._id],
           author: checkingexisting._id,
         });
         newpost.save();
         res.status(200).json({ status: 1, post: newpost });
       }
-      res.status(200).json({ status: 0, error: req.body });
     } catch (error) {
       res.status(500).json({ status: 0, error: error });
     }

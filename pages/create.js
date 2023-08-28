@@ -2,13 +2,13 @@ import { getSession } from "next-auth/react";
 import CreatePost from "@/components/post/CreatePost";
 import Head from "next/head";
 
-export default function Create() {
+export default function Create({ options }) {
   return (
     <>
       <Head>
         <title>Create</title>
       </Head>
-      <CreatePost />
+      <CreatePost options={options} />
     </>
   );
 }
@@ -16,6 +16,12 @@ export default function Create() {
 export async function getServerSideProps({ req }) {
   const session = await getSession({ req });
 
+  const response = await fetch(
+    `${process.env.NEXT_PUBLIC_BASE_URL}/api/category`,
+    { method: "GET", headers: { "Content-Type": "application/json" } }
+  );
+  const data = await response.json();
+  const options = data.categories;
   if (!session) {
     return {
       redirect: {
@@ -25,6 +31,6 @@ export async function getServerSideProps({ req }) {
     };
   }
   return {
-    props: { session },
+    props: { options },
   };
 }

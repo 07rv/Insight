@@ -1,6 +1,6 @@
 import "react-quill/dist/quill.snow.css";
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { storage } from "@/database/firebase";
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 import { v4 as uuid } from "uuid";
@@ -13,13 +13,12 @@ const Editor = dynamic(
   },
   { ssr: false }
 );
-const CreatePost = () => {
+const CreatePost = ({ options }) => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [file, setFile] = useState("");
   const [fileUrl, setfileUrl] = useState("");
   const [category, setCategory] = useState("1");
-  const [options, setOptions] = useState([]);
   const [errorField, setErrorField] = useState({
     title: "",
     content: "",
@@ -27,19 +26,6 @@ const CreatePost = () => {
     category: "",
   });
 
-  useEffect(() => {
-    fetch(`/api/category`, {
-      method: "GET",
-      headers: { "Content-Type": "application/json" },
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        if (data.status == 1) {
-          setOptions(data.categories);
-        } else {
-        }
-      });
-  }, []);
   const router = useRouter();
   const { data: session } = useSession();
   const setErrorMessage = (name, value) => {
@@ -135,10 +121,10 @@ const CreatePost = () => {
                 onChange={(e) => {
                   setCategory(e.target.value);
                 }}
-                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               >
                 {options.map((option) => (
-                  <option key={option._id} value={option.value}>
+                  <option key={option._id} value={option._id}>
                     {option.label}
                   </option>
                 ))}
