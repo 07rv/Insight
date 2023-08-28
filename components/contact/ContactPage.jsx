@@ -2,16 +2,88 @@
 
 import Container from "../blog/Container";
 import { useState } from "react";
-import useWeb3Forms from "@web3forms/react";
-
-import {
-  MapPinIcon,
-  EnvelopeIcon,
-  PhoneIcon,
-} from "@heroicons/react/24/outline";
 import Link from "next/link";
 
 const ContactPage = () => {
+  const [inputField, setInputField] = useState({
+    name: "",
+    email: "",
+    message: "",
+  });
+  const [errorField, setErrorField] = useState({
+    name: "",
+    email: "",
+    message: "",
+  });
+  const [response, setResponse] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const inputHandler = (name, value) => {
+    setInputField((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
+    setErrorField((prevState) => ({
+      ...prevState,
+      [name]: "",
+    }));
+  };
+  const setErrorMessage = (name, value) => {
+    setErrorField((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
+  };
+  const checkAndSetValidationsErrors = () => {
+    var hasError = false;
+    Object.keys(inputField).map((field) => {
+      if (field === "email") {
+        if (inputField[field] === "") {
+          hasError = true;
+          setErrorMessage(field, "Please enter emailId");
+        }
+      } else if (field === "message") {
+        if (inputField[field] === "") {
+          hasError = true;
+          setErrorMessage(field, "Please enter message");
+        }
+      } else if (field === "name") {
+        if (inputField[field] === "") {
+          hasError = true;
+          setErrorMessage(field, "Please enter full name");
+        }
+      }
+    });
+    return hasError;
+  };
+
+  const submitButton = async () => {
+    setIsLoading(true);
+    if (!checkAndSetValidationsErrors()) {
+      await fetch("/api/email", {
+        method: "POST",
+        body: JSON.stringify({
+          name: inputField.name,
+          email: inputField.email,
+          message: inputField.message,
+        }),
+        headers: { "Content-Type": "application/json" },
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          if (data.status == 1) {
+            setIsLoading(false);
+            setResponse(true);
+            const timer = setTimeout(() => {
+              setResponse("");
+            }, 3000);
+          } else {
+            setIsLoading(false);
+            setResponse(false);
+          }
+        });
+    }
+    setIsLoading(false);
+  };
   return (
     <Container>
       <h1 className="text-brand-primary mb-3 mt-2 text-center text-3xl font-semibold tracking-tight dark:text-white lg:text-4xl lg:leading-snug">
@@ -57,28 +129,25 @@ const ContactPage = () => {
           </div>
         </div>
         <div>
-          <form className="my-10">
-            <input
-              type="checkbox"
-              id=""
-              className="hidden"
-              style={{ display: "none" }}
-            ></input>
-
+          <div className="my-10">
             <div className="mb-5">
               <input
                 type="text"
                 placeholder="Full Name"
                 autoComplete="false"
+                name="name"
+                id="name"
                 className={`w-full rounded-md border-2 px-4 py-3 outline-none placeholder:text-gray-800 focus:ring-4 dark:bg-gray-900 dark:text-white   dark:placeholder:text-gray-200  ${
-                  true
+                  errorField && errorField.name
                     ? "border-red-600 ring-red-100 focus:border-red-600 dark:ring-0"
                     : "border-gray-300 ring-gray-100 focus:border-gray-600 dark:border-gray-600 dark:ring-0 dark:focus:border-white"
                 }`}
+                defaultValue={inputField.name}
+                onChange={(e) => inputHandler(e.target.name, e.target.value)}
               />
-              {true && (
+              {errorField && errorField.name && (
                 <div className="mt-1 text-red-600">
-                  <small>{65432}</small>
+                  <small>{errorField.name}</small>
                 </div>
               )}
             </div>
@@ -88,20 +157,22 @@ const ContactPage = () => {
                 Email Address
               </label>
               <input
-                id="email_address"
+                id="email"
                 type="email"
                 placeholder="Email Address"
                 name="email"
                 autoComplete="false"
                 className={`w-full rounded-md border-2 px-4 py-3 outline-none placeholder:text-gray-800 focus:ring-4 dark:bg-gray-900 dark:text-white   dark:placeholder:text-gray-200  ${
-                  true
+                  errorField && errorField.email
                     ? "border-red-600 ring-red-100 focus:border-red-600 dark:ring-0"
                     : "border-gray-300 ring-gray-100 focus:border-gray-600 dark:border-gray-600 dark:ring-0 dark:focus:border-white"
                 }`}
+                defaultValue={inputField.email}
+                onChange={(e) => inputHandler(e.target.name, e.target.value)}
               />
-              {true && (
+              {errorField && errorField.email && (
                 <div className="mt-1 text-red-600">
-                  <small>{`9876543245676543erfg`}</small>
+                  <small>{errorField.email}</small>
                 </div>
               )}
             </div>
@@ -109,26 +180,28 @@ const ContactPage = () => {
             <div className="mb-3">
               <textarea
                 name="message"
+                id="message"
                 placeholder="Your Message"
                 className={`h-36 w-full rounded-md border-2 px-4 py-3 outline-none placeholder:text-gray-800   focus:ring-4 dark:bg-gray-900  dark:text-white dark:placeholder:text-gray-200  ${
-                  true
+                  errorField && errorField.message
                     ? "border-red-600 ring-red-100 focus:border-red-600 dark:ring-0"
                     : "border-gray-300 ring-gray-100 focus:border-gray-600 dark:border-gray-600 dark:ring-0 dark:focus:border-white"
                 }`}
+                defaultValue={inputField.message}
+                onChange={(e) => inputHandler(e.target.name, e.target.value)}
               />
-              {true && (
+              {errorField && errorField.message && (
                 <div className="mt-1 text-red-600">
-                  {" "}
-                  <small>{`123456ygbdexvxrc`}</small>
+                  <small>{errorField.message}</small>
                 </div>
               )}
             </div>
 
             <button
-              type="submit"
+              onClick={submitButton}
               className="w-full rounded-md bg-gray-900 px-7 py-4 font-semibold text-white transition-colors hover:bg-gray-800 focus:outline-none focus:ring focus:ring-gray-200 focus:ring-offset-2 dark:bg-white dark:text-black "
             >
-              {false ? (
+              {isLoading ? (
                 <svg
                   className="mx-auto h-5 w-5 animate-spin text-white dark:text-black"
                   xmlns="http://www.w3.org/2000/svg"
@@ -153,16 +226,16 @@ const ContactPage = () => {
                 "Send Message"
               )}
             </button>
-          </form>
+          </div>
 
-          {true && true && (
+          {response === true && (
             <div className="mt-3 text-center text-sm text-green-500">
-              {true || "Success. Message sent successfully"}
+              {"Success. Message sent successfully"}
             </div>
           )}
-          {true && !true && (
+          {response === false && (
             <div className="mt-3 text-center text-sm text-red-500">
-              {true || "Something went wrong. Please try later."}
+              {"Something went wrong. Please try later."}
             </div>
           )}
         </div>
