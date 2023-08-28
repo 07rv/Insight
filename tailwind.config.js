@@ -16,6 +16,7 @@ module.exports = {
         // to change, update font in _document.js
         sans: ["ui-sans-serif", "system-ui"],
         Italianno: ["Italianno", defaultTheme.fontFamily.sans],
+        Cinzel: ["Cinzel", defaultTheme.fontFamily.sans],
       },
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
