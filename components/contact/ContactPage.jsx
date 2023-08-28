@@ -9,6 +9,7 @@ import {
   EnvelopeIcon,
   PhoneIcon,
 } from "@heroicons/react/24/outline";
+import Link from "next/link";
 
 const ContactPage = () => {
   return (
@@ -26,26 +27,32 @@ const ContactPage = () => {
             Contact Stablo
           </h2>
           <p className="mt-5 max-w-sm">
-            Have something to say? We are here to help. Fill up the form or send
-            email or call phone.
+            Connecting through words: Explore insights, stories, and ideas on
+            our contact page, where you can reach out, collaborate, and be part
+            of our vibrant community.
           </p>
 
           <div className="mt-5">
             <div className="text-dark-600 mt-2 flex items-center space-x-2 dark:text-gray-400">
-              <MapPinIcon className="h-4 w-4" />
-              <span>1734 Sanfransico, CA 93063</span>
+              <Link href={process.env.NEXT_PUBLIC_GITHUB} target="_blank">
+                <button className="text-white bg-[#24292F] hover:bg-[#24292F]/90 focus:ring-4 focus:outline-none focus:ring-[#24292F]/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-gray-500 dark:hover:bg-[#050708]/30 mr-2 mb-2">
+                  Github
+                </button>
+              </Link>
             </div>
-
             <div className="text-dark-600 mt-2 flex items-center space-x-2 dark:text-gray-400">
-              <EnvelopeIcon className="h-4 w-4" />
-              <a
-                href={`mailto:${"28vrohit@gmail.com"}`}
-              >{`28vrohit@gmail.co`}</a>
+              <Link href={process.env.NEXT_PUBLIC_LEETCODE} target="_blank">
+                <button className="text-white bg-[#6f7761] hover:bg-[#505449]/90 focus:ring-4 focus:outline-none focus:ring-[#24292F]/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-gray-500 dark:hover:bg-[#505449]/90 mr-2 mb-2">
+                  Leet Code
+                </button>
+              </Link>
             </div>
-
             <div className="text-dark-600 mt-2 flex items-center space-x-2 dark:text-gray-400">
-              <PhoneIcon className="h-4 w-4" />
-              <a href={`tel:${`8765432`}`}>{`8765432`}</a>
+              <Link href={process.env.NEXT_PUBLIC_LINKEDIN} target="_blank">
+                <button className="text-white bg-[#2583f5] hover:bg-[#3b84de]/90 focus:ring-4 focus:outline-none focus:ring-[#24292F]/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-gray-500 dark:hover:bg-[#3b84de]/90 mr-2 mb-2">
+                  LinkedIn
+                </button>
+              </Link>
             </div>
           </div>
         </div>
