@@ -23,7 +23,7 @@ const Register = () => {
                   : "border-transparent p-4 hover:border-gray-300 hover:text-gray-600 dark:hover:text-gray-300"
               }`}
               >
-                Sign in
+                Sign In
               </a>
             </li>
             <li className="mr-2">

@@ -148,7 +148,7 @@ const SignIn = ({ setOpenTab }) => {
                 }}
                 className="text-blue-600 dark:text-blue-500 font-medium hover:underline"
               >
-                Sign up
+                Sign Up
               </a>
             </p>
           </div>

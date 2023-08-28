@@ -202,7 +202,7 @@ const SignUp = ({ setOpenTab }) => {
                 href="#"
                 className="text-blue-600 dark:text-primary-500 font-medium hover:underline"
               >
-                Sign up
+                Sign In
               </a>
             </p>
           </div>
