@@ -6,16 +6,29 @@ import Category from "@/modal/Category";
 export default async function handler(req, res) {
   await dbConnect();
   if (req.method === "GET") {
-    try {
-      const { limit } = req.query;
-      const posts = await Posts.find()
-        .populate("author", ["email", "name"])
-        .populate("category", ["value", "label", "color"])
-        .sort({ createdAt: -1 })
-        .limit(limit ? parseInt(limit) : undefined);
-      res.status(200).json({ status: 1, posts: posts });
-    } catch (error) {
-      res.status(500).json({ status: 0, error: error });
+    const { query } = req;
+    if (query && query.id) {
+      try {
+        const id = query.id;
+        const post = await Posts.findById(id)
+          .populate("author", ["email", "name"])
+          .populate("category", ["value", "label", "color"]);
+        res.status(200).json({ status: 1, post: post });
+      } catch (error) {
+        res.status(500).json({ status: 0, error: error });
+      }
+    } else {
+      try {
+        const { limit } = req.query;
+        const posts = await Posts.find()
+          .populate("author", ["email", "name"])
+          .populate("category", ["value", "label", "color"])
+          .sort({ createdAt: -1 })
+          .limit(limit ? parseInt(limit) : undefined);
+        res.status(200).json({ status: 1, posts: posts });
+      } catch (error) {
+        res.status(500).json({ status: 0, error: error });
+      }
     }
   } else if (req.method === "POST") {
     if (!req.body)

@@ -1,9 +1,9 @@
-import Post from "@/components/post/Post";
+import PostPage from "@/components/post/PostPage";
 
-export default function Page() {
+export default function Post() {
   return (
     <>
-      <Post />
+      <PostPage />
     </>
   );
 }

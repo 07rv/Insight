@@ -2,25 +2,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { cx } from "@/utils/all";
 import { parseISO, format } from "date-fns";
-import { PhotoIcon } from "@heroicons/react/24/outline";
+import { PhotoIcon, PencilSquareIcon } from "@heroicons/react/24/outline";
 import Category from "../blog/Category";
-
-const categories = [
-  {
-    title: "Tech",
-    slug: {
-      current: "123452345",
-    },
-    color: "pink",
-  },
-  {
-    title: "Cosmos",
-    slug: {
-      current: "123452345",
-    },
-    color: "purple",
-  },
-];
 
 const PostList = ({
   post,
@@ -53,7 +36,7 @@ const PostList = ({
                 ? "aspect-[5/4]"
                 : "aspect-square"
             )}
-            href={`/post?id=${post._id}`}
+            href={`/post/${post._id}`}
           >
             {post.cover ? (
               <Image
@@ -87,7 +70,7 @@ const PostList = ({
                 "mt-2    dark:text-white"
               )}
             >
-              <Link href={`/post?=${post._id}`}>
+              <Link href={`/post/${post._id}`}>
                 <span
                   className="bg-gradient-to-r  bg-[length:0px_10px] bg-left-bottom
                   bg-no-repeat
@@ -102,7 +85,7 @@ const PostList = ({
               </Link>
             </h2>
             <div className="mt-3 flex items-center space-x-3 text-gray-500 dark:text-gray-400">
-              <Link href={`/author`}>
+              <Link href={`/author${post.author._id}`}>
                 <div className="flex items-center gap-3">
                   <div className="relative h-5 w-5 flex-shrink-0">
                     {post.author.img ? (
@@ -114,7 +97,7 @@ const PostList = ({
                         sizes="20px"
                       />
                     ) : (
-                      <PhotoIcon />
+                      <PencilSquareIcon />
                     )}
                   </div>
                   <span className="truncate text-sm">{post.author.name}</span>
