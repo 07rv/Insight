@@ -1,33 +1,51 @@
 import { useRouter } from "next/router";
 import Container from "../blog/Container";
 import PostList from "./PostList";
-const posts = [
-  {
-    id: 1,
-  },
-  {
-    id: 2,
-  },
-  {
-    id: 3,
-  },
-  {
-    id: 4,
-  },
-];
+import { useState, useEffect } from "react";
+import SkeletonImg from "../blog/SkeletonImg";
 
 const CategoryPost = () => {
+  const [isLoading, setIsLoading] = useState(true);
+  const [posts, setPosts] = useState([]);
+  const [category, setCategory] = useState("");
   const router = useRouter();
+  const { id } = router.query;
+  useEffect(() => {
+    fetch(`/api/category?id=${id}`, {
+      method: "GET",
+      headers: { "Content-Type": "application/json" },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.status == 1) {
+          setIsLoading(false);
+          setPosts(data.posts);
+          setCategory(data.category);
+        } else {
+        }
+      });
+  }, [id]);
+
   return (
     <Container>
       <h1 className="text-center text-3xl font-semibold tracking-tight dark:text-white lg:text-4xl lg:leading-snug">
-        {router.query.id}
+        {category}
       </h1>
-      <div className="mt-10 grid gap-10 md:grid-cols-2 lg:gap-10 xl:grid-cols-3">
-        {posts.map((post) => (
-          <PostList key={post.id} post={post} aspect="square" />
-        ))}
-      </div>
+      {isLoading ? (
+        <div className="mt-10 grid gap-10 md:grid-cols-2 lg:gap-10 xl:grid-cols-3">
+          {new Array(6).fill().map((item, index) => (
+            <div key={index}>
+              <SkeletonImg />
+            </div>
+          ))}
+        </div>
+      ) : (
+        <div className="mt-10 grid gap-10 md:grid-cols-2 lg:gap-10 xl:grid-cols-3">
+          {posts.map((post) => (
+            <PostList key={post.id} post={post} aspect="square" />
+          ))}
+        </div>
+      )}
     </Container>
   );
 };
