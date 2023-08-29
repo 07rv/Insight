@@ -16,16 +16,12 @@ const Navbar = () => {
       href: "/",
     },
     {
-      label: "About",
-      href: "/about",
+      label: "Archive",
+      href: "/archive",
     },
   ];
 
   const rightmenu = [
-    {
-      label: "Archive",
-      href: "/archive",
-    },
     {
       label: "Contact",
       href: "/contact",

@@ -17,7 +17,7 @@ export async function getServerSideProps({ req }) {
   const session = await getSession({ req });
 
   const response = await fetch(
-    `${process.env.NEXT_PUBLIC_BASE_URL}/api/category`,
+    `${process.env.NEXT_PUBLIC_BASE_URL}/api/categorylist`,
     { method: "GET", headers: { "Content-Type": "application/json" } }
   );
   const data = await response.json();

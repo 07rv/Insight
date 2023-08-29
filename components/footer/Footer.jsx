@@ -12,10 +12,6 @@ const Footer = () => {
       href: "/",
     },
     {
-      label: "About",
-      href: "/about",
-    },
-    {
       label: "Archive",
       href: "/archive",
     },
@@ -43,34 +39,35 @@ const Footer = () => {
             <ul className="mb-6 flex flex-wrap items-center text-sm font-medium text-gray-500 dark:text-gray-400 sm:mb-0">
               {menu.map((item, index) => (
                 <li key={index}>
-                  <a
+                  <Link
                     href={item.href}
                     className="mr-4 text-lg  hover:text-blue-500 md:mr-6 "
                   >
                     {item.label}
-                  </a>
+                  </Link>
                 </li>
               ))}
               {session ? (
                 <li>
-                  <a
+                  <Link
                     onClick={(e) => {
                       e.preventDefault();
                       signOut();
                     }}
+                    href={""}
                     className="cursor-pointer mr-4 text-lg  hover:text-blue-500 md:mr-6 "
                   >
                     Logout
-                  </a>
+                  </Link>
                 </li>
               ) : (
                 <li>
-                  <a
+                  <Link
                     href={"/register"}
                     className="mr-4 text-lg  hover:text-blue-500 md:mr-6 "
                   >
                     Login
-                  </a>
+                  </Link>
                 </li>
               )}
             </ul>
