@@ -14,23 +14,27 @@ export default function Create({ options }) {
 }
 
 export async function getServerSideProps({ req }) {
-  const session = await getSession({ req });
+  try {
+    const session = await getSession({ req });
 
-  const response = await fetch(
-    `${process.env.NEXT_PUBLIC_BASE_URL}/api/categorylist`,
-    { method: "GET", headers: { "Content-Type": "application/json" } }
-  );
-  const data = await response.json();
-  const options = data.categories;
-  if (!session) {
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_BASE_URL}/api/categorylist`,
+      { method: "GET", headers: { "Content-Type": "application/json" } }
+    );
+    const data = await response.json();
+    const options = data.categories;
+    if (!session) {
+      return {
+        redirect: {
+          destination: "/",
+          permament: false,
+        },
+      };
+    }
     return {
-      redirect: {
-        destination: "/",
-        permament: false,
-      },
+      props: { options },
     };
+  } catch (error) {
+    return { notFound: true };
   }
-  return {
-    props: { options },
-  };
 }
