@@ -5,7 +5,6 @@ import SkeletonImg from "../blog/SkeletonImg";
 
 const Archivepage = () => {
   const [isLoading, setIsLoading] = useState(true);
-  const [isLastPage, setIsLastpage] = useState(false);
   const [posts, setPosts] = useState([]);
   useEffect(() => {
     fetch(`/api/post`, {
@@ -29,11 +28,6 @@ const Archivepage = () => {
       <div className="text-center">
         <p className="mt-2 text-lg">See all posts we have ever written.</p>
       </div>
-      {isLastPage && (
-        <div className="flex h-40 items-center justify-center">
-          <span className="text-lg text-gray-500">End of the result!</span>
-        </div>
-      )}
       {isLoading ? (
         <div className="mt-10 grid gap-10 md:grid-cols-2 lg:gap-10 xl:grid-cols-3">
           {new Array(6).fill().map((item, index) => (
