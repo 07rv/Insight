@@ -1,13 +1,9 @@
 import React from "react";
-import SignIn from "../register/SignIn";
-import { useRouter } from "next/router";
 import Link from "next/link";
-import AuthorPage from "./AuthorPage";
 import AuthorProfile from "./AuthorProfile";
 
 export default function Profile({ author }) {
   const [showModal, setShowModal] = React.useState(false);
-  const router = useRouter();
   return (
     <>
       <button
