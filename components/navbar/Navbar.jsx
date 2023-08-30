@@ -193,7 +193,9 @@ const Navbar = () => {
                         Logout
                       </div>
                       <div className=" cursor-pointer w-full px-5 py-2 text-sm font-medium text-gray-600 hover:text-blue-500 dark:text-gray-400">
-                        Profile
+                        <Link href={`/author/${session.user._id}`}>
+                          Profile
+                        </Link>
                       </div>
                     </>
                   ) : (

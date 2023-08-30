@@ -1,6 +1,6 @@
 import "react-quill/dist/quill.snow.css";
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { storage } from "@/database/firebase";
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 import { v4 as uuid } from "uuid";
@@ -21,16 +21,35 @@ const UpdatePostPage = ({ options }) => {
   const [content, setContent] = useState("");
   const [file, setFile] = useState("");
   const [fileUrl, setfileUrl] = useState("");
-  const [category, setCategory] = useState(options[1]._id);
+  const [category, setCategory] = useState(options[0]._id.toString());
   const [errorField, setErrorField] = useState({
     title: "",
     content: "",
     file: "",
     category: "",
   });
-
-  const router = useRouter();
   const { data: session } = useSession();
+  const router = useRouter();
+  const { id } = router.query;
+  useEffect(() => {
+    fetch(`/api/post?id=${id}`, {
+      method: "GET",
+      headers: { "Content-Type": "application/json" },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.status == 1) {
+          setTitle(data.post.title);
+          setCategory(data.post.category[0]._id);
+          setContent(data.post.content);
+          setfileUrl(data.post.cover);
+          setIsLoading(false);
+        } else {
+          notFound = true;
+        }
+      });
+  }, [id]);
+
   const setErrorMessage = (name, value) => {
     setErrorField((prevState) => ({
       ...prevState,
@@ -42,10 +61,6 @@ const UpdatePostPage = ({ options }) => {
     var hasError = false;
     if (title === "") {
       setErrorMessage("title", "Enter title");
-      hasError = true;
-    }
-    if (file === "") {
-      setErrorMessage("file", "Choose file");
       hasError = true;
     }
     if (content === "") {
@@ -60,6 +75,25 @@ const UpdatePostPage = ({ options }) => {
 
   const submitButton = async () => {
     if (!checkAndSetValidationsErrors()) {
+      console.log(title, category);
+      await fetch("/api/post", {
+        method: "PUT",
+        body: JSON.stringify({
+          title: title,
+          content: content,
+          category: category,
+          email: session?.user?.email,
+          _id: id,
+        }),
+        headers: { "Content-Type": "application/json" },
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          if (data.status == 1) {
+            router.push(`/post/${id}`);
+          } else {
+          }
+        });
     }
   };
   return (
@@ -74,7 +108,7 @@ const UpdatePostPage = ({ options }) => {
         <section className="bg-white dark:bg-gray-900">
           <div className="py-4 lg:py-8 px-4 mx-auto max-w-screen-md">
             <h2 className="mb-4 text-4xl tracking-tight font-extrabold text-center text-gray-900 dark:text-white">
-              Post
+              Update Post
             </h2>
             <div>
               <div className="mb-6">
@@ -148,14 +182,9 @@ const UpdatePostPage = ({ options }) => {
                         </p>
                       </div>
                       <input
+                        disabled
                         name="file"
                         id="file"
-                        onChange={(ev) => {
-                          setErrorField({ file: "" });
-                          setfileUrl(URL.createObjectURL(ev.target.files[0]));
-                          setFile(ev.target.files[0]);
-                        }}
-                        defaultValue={fileUrl}
                         type="file"
                         className="hidden"
                       />
@@ -203,7 +232,7 @@ const UpdatePostPage = ({ options }) => {
                 onClick={submitButton}
                 className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
               >
-                Create
+                Update
               </button>
             </div>
           </div>

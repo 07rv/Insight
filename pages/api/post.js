@@ -55,6 +55,31 @@ export default async function handler(req, res) {
     } catch (error) {
       res.status(500).json({ status: 0, error: error });
     }
+  } else if (req.method === "PUT") {
+    if (!req.body)
+      res.status(404).json({ status: 0, error: "Don't have body" });
+    try {
+      const { title, content, email, category, _id } = req.body;
+      const checkingexisting = await Users.findOne({ email });
+
+      if (!checkingexisting)
+        res.status(422).json({ status: 0, error: "Please register first" });
+      else {
+        const checkingexistingPost = await Posts.findById({ _id: _id });
+        if (!checkingexistingPost) {
+          res.status(422).json({ status: 0, error: "No such post exit" });
+        }
+        const postCategory = await Category.findOne({ _id: category });
+        await checkingexistingPost.updateOne({
+          title,
+          content,
+          category: [postCategory._id],
+        });
+        res.status(200).json({ status: 1, post: checkingexistingPost });
+      }
+    } catch (error) {
+      res.status(500).json({ status: 0, error: error });
+    }
   } else {
     res.status(500).json({ status: 0, error: "HTTP method not valid" });
   }
