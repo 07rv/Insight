@@ -1,18 +1,25 @@
 import { useState } from "react";
 import Image from "next/image";
 import { PencilSquareIcon } from "@heroicons/react/24/solid";
+import { storage } from "@/database/firebase";
+import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
+import { v4 as uuid } from "uuid";
 
 const AuthorProfile = ({ author }) => {
   const [inputField, setInputField] = useState({
     name: author.name,
     email: author.email,
     about: author.about ? author.about : "",
+    profileImg: author.profileImg ? author.profileImg : null,
   });
   const [errorField, setErrorField] = useState({
     name: "",
     email: "",
     about: "",
+    profileImg: "",
   });
+  const [file, setFile] = useState();
+  const [fileUrl, setfileUrl] = useState("");
   const [response, setResponse] = useState("");
   const inputHandler = (name, value) => {
     setInputField((prevState) => ({
@@ -51,26 +58,60 @@ const AuthorProfile = ({ author }) => {
 
   const submitButton = async () => {
     if (!checkAndSetValidationsErrors()) {
-      await fetch("/api/auth/signup", {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(inputField),
-      })
-        .then((res) => res.json())
-        .then((data) => {
-          if (data.status == 1) {
-            setResponse(true);
-            const timer = setTimeout(() => {
-              setResponse("");
-              window.location.reload();
-            }, 3000);
-          } else {
-            setResponse(false);
-            const timer = setTimeout(() => {
-              setResponse("");
-            }, 3000);
-          }
+      if (file) {
+        const fileName = `authors/${uuid()}.${file.name.split(".").pop()}`;
+        const storageRef = ref(storage, `${fileName}`);
+        uploadBytesResumable(storageRef, file).then((snapshot) => {
+          getDownloadURL(snapshot.ref).then(async (downloadURL) => {
+            await fetch("/api/auth/signup", {
+              method: "PUT",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({
+                name: inputField.name,
+                email: inputField.email,
+                about: inputField.about,
+                profileImg: downloadURL,
+              }),
+            })
+              .then((res) => res.json())
+              .then((data) => {
+                if (data.status == 1) {
+                  setResponse(true);
+                  const timer = setTimeout(() => {
+                    setResponse("");
+                    window.location.reload();
+                  }, 3000);
+                } else {
+                  setResponse(false);
+                  const timer = setTimeout(() => {
+                    setResponse("");
+                  }, 3000);
+                }
+              });
+          });
         });
+      } else {
+        await fetch("/api/auth/signup", {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(inputField),
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            if (data.status == 1) {
+              setResponse(true);
+              const timer = setTimeout(() => {
+                setResponse("");
+                window.location.reload();
+              }, 3000);
+            } else {
+              setResponse(false);
+              const timer = setTimeout(() => {
+                setResponse("");
+              }, 3000);
+            }
+          });
+      }
     }
   };
   return (
@@ -79,11 +120,11 @@ const AuthorProfile = ({ author }) => {
         <div className="space-y-4 p-6 sm:p-8 md:space-y-6">
           <div className="space-y-4 md:space-y-6">
             <div className="m-auto relative mt-1 h-48 w-48 flex-shrink-0 ">
-              {author.profileImg ? (
+              {inputField.profileImg ? (
                 <div>
                   <Image
-                    src={author.profileImg}
-                    alt={author.name}
+                    src={inputField.profileImg}
+                    alt={inputField.name}
                     className="rounded-full object-cover"
                     fill
                     sizes="96px"
@@ -92,7 +133,7 @@ const AuthorProfile = ({ author }) => {
               ) : (
                 <div>
                   <Image
-                    src={"/img/preview.jpeg"}
+                    src={fileUrl ? fileUrl : "/img/preview.jpeg"}
                     alt={author.name}
                     className="rounded-full object-cover"
                     fill
@@ -101,9 +142,24 @@ const AuthorProfile = ({ author }) => {
                 </div>
               )}
               <div className=" cursor-pointer absolute w-full py-2.5 bottom-5 inset-x-40  text-xs text-center leading-4 text-slate-950 dark:text-gray-400">
-                <div className="relative h-6 w-6">
-                  <PencilSquareIcon />
-                </div>
+                <label>
+                  <div className="relative h-6 w-6 cursor-pointer">
+                    <PencilSquareIcon />
+                  </div>
+                  <input
+                    onChange={(ev) => {
+                      setErrorField({ file: "" });
+                      setfileUrl(URL.createObjectURL(ev.target.files[0]));
+                      inputHandler("profileImg", null);
+                      setFile(ev.target.files[0]);
+                    }}
+                    defaultValue={fileUrl}
+                    name="file"
+                    id="file"
+                    type="file"
+                    className="hidden"
+                  />
+                </label>
               </div>
             </div>
             <div>

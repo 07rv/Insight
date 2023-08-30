@@ -33,7 +33,7 @@ export default async function handler(req, res) {
     if (!req.body)
       res.status(404).json({ status: 0, error: "Don't have body" });
 
-    const { name, email, about } = req.body;
+    const { name, email, about, profileImg } = req.body;
     const checkingexisting = await Users.findOne({ email });
 
     if (!checkingexisting)
@@ -43,6 +43,7 @@ export default async function handler(req, res) {
         name,
         email,
         about,
+        profileImg,
       });
       res.status(200).json({ status: 1, author: checkingexisting });
     }
