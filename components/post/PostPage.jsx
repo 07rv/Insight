@@ -4,17 +4,20 @@ import Container from "../blog/Container";
 import Category from "../blog/Category";
 import AuthorCard from "../author/AuthorCard";
 
+import { PencilSquareIcon } from "@heroicons/react/24/outline";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import Image from "next/image";
 import { parseISO, format } from "date-fns";
+import { useSession } from "next-auth/react";
 
 const PostPage = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [post, setPost] = useState([]);
   const router = useRouter();
   const { id } = router.query;
+  const { data: session } = useSession();
   useEffect(() => {
     fetch(`/api/post?id=${id}`, {
       method: "GET",
@@ -103,6 +106,16 @@ const PostPage = () => {
                         {format(parseISO(post.createdAt), "MMMM dd, yyyy")}
                       </time>
                       <span>· {10 || "5"} min read</span>
+                      {post.author._id === session?.user._id && (
+                        <div
+                          onClick={() => {
+                            router.push(`/updatepost/${id}`);
+                          }}
+                          className="relative h-5 w-5 flex-shrink-0 cursor-pointer"
+                        >
+                          <PencilSquareIcon />
+                        </div>
+                      )}
                     </div>
                   </div>
                 </div>
