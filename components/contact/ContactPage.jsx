@@ -79,6 +79,10 @@ const ContactPage = () => {
           } else {
             setIsLoading(false);
             setResponse(false);
+            setResponse(true);
+            const timer = setTimeout(() => {
+              setResponse("");
+            }, 3000);
           }
         });
     }

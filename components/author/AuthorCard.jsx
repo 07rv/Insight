@@ -36,15 +36,7 @@ const AuthorCard = ({ author, profile = false }) => {
               {author.name}
             </h3>
           </div>
-          <div>
-            {true && (
-              <>
-                Mario is a Staff Engineer specialising in Frontend at Vercel, as
-                well as being a co-founder of Acme and the content management
-                system Sanity. Prior to this, he was a Senior Engineer at Apple.
-              </>
-            )}
-          </div>
+          <div>{author.about && <>{author.about} </>}</div>
           {profile && session?.user?._id === author._id && (
             <div className="mt-3">
               <div className="bg-brand-secondary/20 rounded-full py-2 text-sm text-blue-600 dark:text-blue-500 ">

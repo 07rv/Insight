@@ -13,7 +13,7 @@ const AuthorProfile = ({ author }) => {
     email: "",
     about: "",
   });
-
+  const [response, setResponse] = useState("");
   const inputHandler = (name, value) => {
     setInputField((prevState) => ({
       ...prevState,
@@ -51,7 +51,26 @@ const AuthorProfile = ({ author }) => {
 
   const submitButton = async () => {
     if (!checkAndSetValidationsErrors()) {
-      console.log(inputField);
+      await fetch("/api/auth/signup", {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(inputField),
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          if (data.status == 1) {
+            setResponse(true);
+            const timer = setTimeout(() => {
+              setResponse("");
+              window.location.reload();
+            }, 3000);
+          } else {
+            setResponse(false);
+            const timer = setTimeout(() => {
+              setResponse("");
+            }, 3000);
+          }
+        });
     }
   };
   return (
@@ -134,7 +153,7 @@ const AuthorProfile = ({ author }) => {
                 type="text"
                 name="about"
                 id="about"
-                rows="4"
+                rows="6"
                 maxlength="300"
                 defaultValue={inputField.about}
                 onChange={(e) => inputHandler(e.target.name, e.target.value)}
@@ -148,6 +167,16 @@ const AuthorProfile = ({ author }) => {
             >
               Update
             </button>
+            {response === true && (
+              <div className="mt-3 text-center text-sm text-green-500">
+                {"Success. Profile Updated"}
+              </div>
+            )}
+            {response === false && (
+              <div className="mt-3 text-center text-sm text-red-500">
+                {"Something went wrong. Please try later."}
+              </div>
+            )}
           </div>
         </div>
       </div>
