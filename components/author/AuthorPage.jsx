@@ -59,7 +59,7 @@ const Pagination = ({ posts, itemsPerPage, isLoading, author }) => {
         </h1>
         <Container>
           <article className="mx-auto max-w-screen-md ">
-            {author && <AuthorCard author={author} />}
+            {author && <AuthorCard author={author} profile={true} />}
           </article>
         </Container>
         {isLoading ? (
