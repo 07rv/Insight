@@ -45,7 +45,7 @@ const AuthorCard = ({ author, profile = false }) => {
               </>
             )}
           </div>
-          {profile && session.user._id === author._id && (
+          {profile && session?.user?._id === author._id && (
             <div className="mt-3">
               <div className="bg-brand-secondary/20 rounded-full py-2 text-sm text-blue-600 dark:text-blue-500 ">
                 <Profile author={author} />

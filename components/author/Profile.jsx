@@ -2,6 +2,8 @@ import React from "react";
 import SignIn from "../register/SignIn";
 import { useRouter } from "next/router";
 import Link from "next/link";
+import AuthorPage from "./AuthorPage";
+import AuthorProfile from "./AuthorProfile";
 
 export default function Profile({ author }) {
   const [showModal, setShowModal] = React.useState(false);
@@ -50,7 +52,7 @@ export default function Profile({ author }) {
                 </div>
 
                 <div class="p-6 space-y-6">
-                  <SignIn />
+                  <AuthorProfile author={author} />
                 </div>
 
                 <div class="flex items-center p-6 space-x-2 border-t border-gray-200 rounded-b dark:border-gray-600">
