@@ -1,8 +1,11 @@
 import React from "react";
 import SignIn from "../register/SignIn";
+import { useRouter } from "next/router";
+import Link from "next/link";
 
-export default function Profile() {
+export default function Profile({ author }) {
   const [showModal, setShowModal] = React.useState(false);
+  const router = useRouter();
   return (
     <>
       <button
@@ -19,7 +22,7 @@ export default function Profile() {
               <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
                 <div class="flex items-start justify-between p-4 border-b rounded-t dark:border-gray-600">
                   <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
-                    Static modal
+                    {author.name}
                   </h3>
                   <button
                     onClick={() => setShowModal(false)}
@@ -51,13 +54,14 @@ export default function Profile() {
                 </div>
 
                 <div class="flex items-center p-6 space-x-2 border-t border-gray-200 rounded-b dark:border-gray-600">
-                  <button
+                  <Link
+                    href={"/create"}
                     data-modal-hide="staticModal"
                     type="button"
                     class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                   >
-                    I accept
-                  </button>
+                    Create Post
+                  </Link>
                   <button
                     onClick={() => setShowModal(false)}
                     data-modal-hide="staticModal"

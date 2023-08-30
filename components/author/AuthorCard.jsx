@@ -47,7 +47,7 @@ const AuthorCard = ({ author, profile = false }) => {
           {profile && (
             <div className="mt-3">
               <div className="bg-brand-secondary/20 rounded-full py-2 text-sm text-blue-600 dark:text-blue-500 ">
-                <Profile />
+                <Profile author={author} />
               </div>
             </div>
           )}
