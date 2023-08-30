@@ -25,13 +25,16 @@ export default NextAuth({
         if (!checkPassword || result.email !== credentials.email) {
           throw new Error("Username or Password doesn't match");
         }
-        return {
-          id: result._id,
-          name: result.name,
-          email: result.email,
-        };
+        const user = { id: "1", name: "J Smith", email: "jsmith@example.com" };
+        return user;
       },
     }),
   ],
   secret: process.env.NEXT_SECRET,
+  callbacks: {
+    async session({ session, token }) {
+      if (token) session.user._id = token.sub;
+      return session;
+    },
+  },
 });

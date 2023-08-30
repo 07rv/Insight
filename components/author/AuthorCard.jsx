@@ -1,8 +1,9 @@
 import Link from "next/link";
 import Image from "next/image";
 import Profile from "./Profile";
-
+import { useSession } from "next-auth/react";
 const AuthorCard = ({ author, profile = false }) => {
+  const { data: session } = useSession();
   return (
     <div className="mt-3 rounded-2xl bg-gray-50 px-8 py-8 text-gray-500 dark:bg-gray-900 dark:text-gray-400">
       <div className="flex flex-wrap items-start sm:flex-nowrap sm:space-x-6">
@@ -44,7 +45,7 @@ const AuthorCard = ({ author, profile = false }) => {
               </>
             )}
           </div>
-          {profile && (
+          {profile && session.user._id === author._id && (
             <div className="mt-3">
               <div className="bg-brand-secondary/20 rounded-full py-2 text-sm text-blue-600 dark:text-blue-500 ">
                 <Profile author={author} />
