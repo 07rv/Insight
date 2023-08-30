@@ -1,5 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
+import Profile from "./Profile";
 
 const AuthorCard = ({ author, profile = false }) => {
   return (
@@ -45,12 +46,9 @@ const AuthorCard = ({ author, profile = false }) => {
           </div>
           {profile && (
             <div className="mt-3">
-              <Link
-                href={`/author/${author._id}`}
-                className="bg-brand-secondary/20 rounded-full py-2 text-sm text-blue-600 dark:text-blue-500 "
-              >
-                View Profile
-              </Link>
+              <div className="bg-brand-secondary/20 rounded-full py-2 text-sm text-blue-600 dark:text-blue-500 ">
+                <Profile />
+              </div>
             </div>
           )}
         </div>
