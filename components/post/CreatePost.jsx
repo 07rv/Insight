@@ -18,7 +18,7 @@ const CreatePost = ({ options }) => {
   const [content, setContent] = useState("");
   const [file, setFile] = useState("");
   const [fileUrl, setfileUrl] = useState("");
-  const [category, setCategory] = useState("1");
+  const [category, setCategory] = useState(options[1]._id);
   const [errorField, setErrorField] = useState({
     title: "",
     content: "",

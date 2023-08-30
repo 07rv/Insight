@@ -1,14 +1,15 @@
 import { getSession } from "next-auth/react";
 import CreatePost from "@/components/post/CreatePost";
 import Head from "next/head";
+import UpdatePostPage from "@/components/post/UpdatePostPage";
 
 export default function UpdatePost({ options }) {
   return (
     <>
       <Head>
-        <title>Create</title>
+        <title>Edit</title>
       </Head>
-      <CreatePost options={options} />
+      <UpdatePostPage options={options} />
     </>
   );
 }

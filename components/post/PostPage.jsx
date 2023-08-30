@@ -109,7 +109,7 @@ const PostPage = () => {
                       {post.author._id === session?.user._id && (
                         <div
                           onClick={() => {
-                            router.push(`/updatepost/${id}`);
+                            router.push(`/edit/${id}`);
                           }}
                           className="relative h-5 w-5 flex-shrink-0 cursor-pointer"
                         >
