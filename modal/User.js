@@ -11,6 +11,9 @@ const UserSchema = new Schema({
     required: true,
     unqiue: true,
   },
+  profileImg: {
+    type: String,
+  },
   about: {
     type: String,
   },

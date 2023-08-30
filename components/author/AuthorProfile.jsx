@@ -79,10 +79,10 @@ const AuthorProfile = ({ author }) => {
         <div className="space-y-4 p-6 sm:p-8 md:space-y-6">
           <div className="space-y-4 md:space-y-6">
             <div className="m-auto relative mt-1 h-48 w-48 flex-shrink-0 ">
-              {author.img ? (
+              {author.profileImg ? (
                 <div>
                   <Image
-                    src={author.img}
+                    src={author.profileImg}
                     alt={author.name}
                     className="rounded-full object-cover"
                     fill

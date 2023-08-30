@@ -10,23 +10,6 @@ import { useRouter } from "next/router";
 import Image from "next/image";
 import { parseISO, format } from "date-fns";
 
-const categories = [
-  {
-    title: "Tech",
-    slug: {
-      current: "123452345",
-    },
-    color: "pink",
-  },
-  {
-    title: "Cosmos",
-    slug: {
-      current: "123452345",
-    },
-    color: "purple",
-  },
-];
-
 const PostPage = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [post, setPost] = useState([]);
@@ -80,12 +63,12 @@ const PostPage = () => {
               <div className="mt-3 flex justify-center space-x-3 text-gray-500 ">
                 <div className="flex items-center gap-3">
                   <div className="relative h-10 w-10 flex-shrink-0">
-                    {post.author.img ? (
+                    {post.author.profileImg ? (
                       <Link href={`/author/${post.author._id}`}>
                         {
                           <Image
-                            src={`post.author.img`}
-                            alt={`Rohit`}
+                            src={post.author.profileImg}
+                            alt={post.author.name}
                             className="rounded-full object-cover"
                             fill
                             sizes="40px"
@@ -97,7 +80,7 @@ const PostPage = () => {
                         {
                           <Image
                             src={`/img/preview.jpeg`}
-                            alt={`Rohit`}
+                            alt={"preview"}
                             className="rounded-full object-cover"
                             fill
                             sizes="40px"

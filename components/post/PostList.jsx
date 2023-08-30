@@ -88,9 +88,9 @@ const PostList = ({
               <Link href={`/author/${post.author._id}`}>
                 <div className="flex items-center gap-3">
                   <div className="relative h-5 w-5 flex-shrink-0">
-                    {post.author.img ? (
+                    {post.author.profileImg ? (
                       <Image
-                        src={post.author.img}
+                        src={post.author.profileImg}
                         alt={"author"}
                         className="rounded-full object-cover"
                         fill

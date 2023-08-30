@@ -11,7 +11,7 @@ export default async function handler(req, res) {
       try {
         const id = query.id;
         const post = await Posts.findById(id)
-          .populate("author", ["email", "name"])
+          .populate("author", ["email", "name", "profileImg", "about"])
           .populate("category", ["value", "label", "color"]);
         res.status(200).json({ status: 1, post: post });
       } catch (error) {
@@ -21,7 +21,7 @@ export default async function handler(req, res) {
       try {
         const { limit } = req.query;
         const posts = await Posts.find()
-          .populate("author", ["email", "name"])
+          .populate("author", ["email", "name", "profileImg", "about"])
           .populate("category", ["value", "label", "color"])
           .sort({ createdAt: -1 })
           .limit(limit ? parseInt(limit) : undefined);

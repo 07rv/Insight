@@ -57,8 +57,8 @@ const CreatePost = ({ options }) => {
 
   const submitButton = async () => {
     if (!checkAndSetValidationsErrors()) {
-      const fileName = `posts/${uuid()}.${file.name.split(".").pop()}`;
-      const storageRef = ref(storage, `posts/${fileName}`);
+      const fileName = `authors/${uuid()}.${file.name.split(".").pop()}`;
+      const storageRef = ref(storage, `${fileName}`);
       uploadBytesResumable(storageRef, file).then((snapshot) => {
         getDownloadURL(snapshot.ref).then(async (downloadURL) => {
           await fetch("/api/post", {
