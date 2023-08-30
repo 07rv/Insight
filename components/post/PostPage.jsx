@@ -2,7 +2,7 @@
 
 import Container from "../blog/Container";
 import Category from "../blog/Category";
-import AuthorCard from "../blog/AuthorCard";
+import AuthorCard from "../author/AuthorCard";
 
 import Link from "next/link";
 import { useEffect, useState } from "react";

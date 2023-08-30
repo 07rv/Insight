@@ -4,7 +4,7 @@ import PostList from "../post/PostList";
 import { useState, useEffect } from "react";
 import SkeletonImg from "../blog/SkeletonImg";
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/solid";
-import AuthorCard from "../blog/AuthorCard";
+import AuthorCard from "./AuthorCard";
 const AuthorPage = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [posts, setPosts] = useState([]);
