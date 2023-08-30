@@ -16,7 +16,7 @@ export default async function handler(req, res) {
           .populate("category", ["value", "label", "color"])
           .sort({ createdAt: -1 });
 
-        res.status(200).json({ status: 1, posts: posts, author: user.name });
+        res.status(200).json({ status: 1, posts: posts, author: user });
       } else {
         res.status(500).json({ status: 0, error: "No such category" });
       }

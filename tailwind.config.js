@@ -17,6 +17,7 @@ module.exports = {
         sans: ["ui-sans-serif", "system-ui"],
         Italianno: ["Italianno", defaultTheme.fontFamily.sans],
         Cinzel: ["Cinzel", defaultTheme.fontFamily.sans],
+        Inconsolata: ["Inconsolata", "Georgia"],
       },
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",

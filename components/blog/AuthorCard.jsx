@@ -35,7 +35,7 @@ const AuthorCard = ({ author }) => {
             </h3>
           </div>
           <div>
-            {author.about && (
+            {true && (
               <>
                 Mario is a Staff Engineer specialising in Frontend at Vercel, as
                 well as being a co-founder of Acme and the content management
