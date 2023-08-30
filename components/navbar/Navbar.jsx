@@ -18,6 +18,12 @@ const Navbar = () => {
     {
       label: "Archive",
       href: "/archive",
+      children: [
+        // {
+        //   title: "Archive",
+        //   href: "/archive",
+        // },
+      ],
     },
   ];
 
@@ -50,7 +56,7 @@ const Navbar = () => {
                         <Link
                           href={item.href}
                           key={`${item.label}${index}`}
-                          className="hover:text-blue-500 px-5 py-2  font-medium text-gray-600  dark:text-gray-400 dark:hover:text-blue-500"
+                          className="hover:text-blue-500 px-5 py-2 font-medium text-gray-600  dark:text-gray-400 dark:hover:text-blue-500"
                           target={item.external ? "_blank" : ""}
                           rel={item.external ? "noopener" : ""}
                         >
@@ -125,15 +131,22 @@ const Navbar = () => {
                     </Fragment>
                   ))}
                   {session ? (
-                    <div
-                      onClick={(e) => {
-                        e.preventDefault();
-                        signOut();
-                      }}
-                      className="cursor-pointer px-5 py-2  font-medium text-gray-600 hover:text-blue-500 dark:text-gray-400 dark:hover:text-blue-500"
-                    >
-                      <span>Logout</span>
-                    </div>
+                    <>
+                      <div
+                        onClick={(e) => {
+                          e.preventDefault();
+                          signOut();
+                        }}
+                        className="cursor-pointer px-5 py-2  font-medium text-gray-600 hover:text-blue-500 dark:text-gray-400 dark:hover:text-blue-500"
+                      >
+                        <span>Logout</span>
+                      </div>
+                      <div className="cursor-pointer px-5 py-2  font-medium text-gray-600 hover:text-blue-500 dark:text-gray-400 dark:hover:text-blue-500">
+                        <Link href={`/author/${session.user._id}`}>
+                          Profile
+                        </Link>
+                      </div>
+                    </>
                   ) : (
                     <Link
                       href={"/register"}
@@ -169,15 +182,20 @@ const Navbar = () => {
                     </Fragment>
                   ))}
                   {session ? (
-                    <div
-                      onClick={(e) => {
-                        e.preventDefault();
-                        signOut();
-                      }}
-                      className=" cursor-pointer w-full px-5 py-2 text-sm font-medium text-gray-600 hover:text-blue-500 dark:text-gray-400"
-                    >
-                      Logout
-                    </div>
+                    <>
+                      <div
+                        onClick={(e) => {
+                          e.preventDefault();
+                          signOut();
+                        }}
+                        className=" cursor-pointer w-full px-5 py-2 text-sm font-medium text-gray-600 hover:text-blue-500 dark:text-gray-400"
+                      >
+                        Logout
+                      </div>
+                      <div className=" cursor-pointer w-full px-5 py-2 text-sm font-medium text-gray-600 hover:text-blue-500 dark:text-gray-400">
+                        Profile
+                      </div>
+                    </>
                   ) : (
                     <Link
                       href={"/register"}
