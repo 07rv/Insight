@@ -1,20 +1,10 @@
 import "react-quill/dist/quill.snow.css";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import { storage } from "@/database/firebase";
-import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
-import { v4 as uuid } from "uuid";
 import { useSession } from "next-auth/react";
 
-import dynamic from "next/dynamic";
 import SkeletonPost from "../blog/SkeletonPost";
-import Container from "../blog/Container";
-const Editor = dynamic(
-  () => {
-    return import("../editor/Editor");
-  },
-  { ssr: false }
-);
+import Editor from "../editor/Editor";
 const UpdatePostPage = ({ options }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [title, setTitle] = useState("");

@@ -1,4 +1,7 @@
-import ReactQuill from "react-quill";
+import dynamic from "next/dynamic";
+const ReactQuill = dynamic(import("react-quill"), {
+  ssr: false,
+});
 
 const Editor = ({ value, setContent, setErrorField }) => {
   const modules = {
@@ -13,7 +16,7 @@ const Editor = ({ value, setContent, setErrorField }) => {
         { indent: "+1" },
       ],
       [{ align: [] }],
-      ["link", "image"],
+      ["link", "image", "video"],
       [{ color: [] }],
       ["clean"],
     ],
