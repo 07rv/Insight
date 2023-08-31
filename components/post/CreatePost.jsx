@@ -1,4 +1,3 @@
-import "react-quill/dist/quill.snow.css";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import { storage } from "@/database/firebase";
