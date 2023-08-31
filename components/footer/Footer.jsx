@@ -28,12 +28,12 @@ const Footer = () => {
           <div className="sm:flex sm:items-center sm:justify-between">
             <Link href="/" className="w-28 dark:hidden">
               <span className="block text-center font-Italianno text-5xl font-semibold">
-                Stablo
+                Insight
               </span>
             </Link>
             <Link href="/" className="hidden w-28 dark:block">
               <span className="block text-center font-Italianno text-5xl font-semibold">
-                Stablo
+                Insight
               </span>
             </Link>
             <ul className="mb-6 flex flex-wrap items-center text-sm font-medium text-gray-500 dark:text-gray-400 sm:mb-0">

@@ -69,12 +69,12 @@ const Navbar = () => {
                 <div className="flex w-full items-center justify-between md:w-auto">
                   <Link href="/" className="w-28 dark:hidden">
                     <span className="block text-center font-Italianno text-5xl font-semibold">
-                      Stablo
+                      Insight
                     </span>
                   </Link>
                   <Link href="/" className="hidden w-28 dark:block">
                     <span className="block text-center font-Italianno text-5xl font-semibold">
-                      Stablo
+                      Insight
                     </span>
                   </Link>
                   <Disclosure.Button

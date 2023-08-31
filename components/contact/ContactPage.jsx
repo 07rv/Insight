@@ -115,8 +115,8 @@ const ContactPage = () => {
       </div>
       <div className="my-10 grid md:grid-cols-2">
         <div className="my-10">
-          <h2 className="text-2xl font-semibold dark:text-white">
-            Contact Stablo
+          <h2 className="text-5xl font-semibold dark:text-white font-Italianno">
+            Insight
           </h2>
           <p className="mt-5 max-w-sm">
             Connecting through words: Explore insights, stories, and ideas on

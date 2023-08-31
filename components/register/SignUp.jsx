@@ -163,25 +163,9 @@ const SignUp = ({ setOpenTab }) => {
               )}
             </div>
             <div className="flex items-center justify-between">
-              <div className="flex items-start">
-                <div className="flex h-5 items-center">
-                  <input
-                    id="remember"
-                    aria-describedby="remember"
-                    type="checkbox"
-                    className="focus:ring-3 focus:ring-primary-300 dark:focus:ring-primary-600 h-4 w-4 rounded border border-gray-300 bg-gray-50 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800"
-                    required=""
-                  />
-                </div>
-                <div className="ml-3 text-sm">
-                  <label className="text-gray-500 dark:text-gray-300">
-                    Remember me
-                  </label>
-                </div>
-              </div>
               <a
                 href="#"
-                className="text-primary-600 dark:text-primary-500 text-sm font-medium hover:underline"
+                className="text-blue-600 dark:text-blue-500 text-sm font-medium hover:underline"
               >
                 Forgot password?
               </a>
