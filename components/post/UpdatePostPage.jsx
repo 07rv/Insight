@@ -4,7 +4,10 @@ import { useEffect, useState } from "react";
 import { useSession } from "next-auth/react";
 
 import SkeletonPost from "../blog/SkeletonPost";
-import Editor from "../editor/Editor";
+import dynamic from "next/dynamic";
+const Editor = dynamic(import("../editor/Editor"), {
+  ssr: false,
+});
 const UpdatePostPage = ({ options }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [title, setTitle] = useState("");

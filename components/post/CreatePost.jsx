@@ -4,7 +4,11 @@ import { storage } from "@/database/firebase";
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 import { v4 as uuid } from "uuid";
 import { useSession } from "next-auth/react";
-import Editor from "../editor/Editor";
+
+import dynamic from "next/dynamic";
+const Editor = dynamic(import("../editor/Editor"), {
+  ssr: false,
+});
 
 const CreatePost = ({ options }) => {
   const [title, setTitle] = useState("");

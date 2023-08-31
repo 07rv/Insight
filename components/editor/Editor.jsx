@@ -1,7 +1,4 @@
-import dynamic from "next/dynamic";
-const ReactQuill = dynamic(import("react-quill"), {
-  ssr: false,
-});
+import ReactQuill from "react-quill";
 
 const Editor = ({ value, setContent, setErrorField }) => {
   const modules = {
