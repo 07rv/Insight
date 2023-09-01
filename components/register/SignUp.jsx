@@ -1,5 +1,6 @@
 import { useState } from "react";
 import Spinner from "../blog/Spinner";
+import SignUpVerification from "./SignUpVerification";
 
 const SignUp = ({ setOpenTab }) => {
   const [inputField, setInputField] = useState({
@@ -16,6 +17,7 @@ const SignUp = ({ setOpenTab }) => {
     confirmPasword: "",
   });
   const [isLoading, setIsLoading] = useState(false);
+  const [openVerifyEmail, setOpenVerifyEmail] = useState(false);
   const inputHandler = (name, value) => {
     setInputField((prevState) => ({
       ...prevState,
@@ -76,7 +78,7 @@ const SignUp = ({ setOpenTab }) => {
         .then((data) => {
           if (data.status == 1) {
             setIsLoading(false);
-            setOpenTab(1);
+            setOpenVerifyEmail(true);
           } else {
             setIsLoading(false);
           }
@@ -198,6 +200,13 @@ const SignUp = ({ setOpenTab }) => {
           </div>
         </div>
       </div>
+      {openVerifyEmail && (
+        <SignUpVerification
+          setOpenVerifyEmail={setOpenVerifyEmail}
+          EmailId={inputField.email}
+          setOpenTab={setOpenTab}
+        />
+      )}
     </div>
   );
 };
