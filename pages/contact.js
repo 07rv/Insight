@@ -6,6 +6,7 @@ export default function Contact() {
     <>
       <Head>
         <title>Contact</title>
+        <link rel="icon" href="/favicon.ico" sizes="any" />
       </Head>
       <ContactPage />
     </>

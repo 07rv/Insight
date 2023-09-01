@@ -1,4 +1,3 @@
-import Posts from "@/components/post/Posts";
 import Head from "next/head";
 
 export default function NotFound() {

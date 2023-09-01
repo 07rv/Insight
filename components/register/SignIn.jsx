@@ -2,6 +2,7 @@ import React from "react";
 import { useState } from "react";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/router";
+import Spinner from "../blog/Spinner";
 
 const SignIn = ({ setOpenTab }) => {
   const [inputField, setInputField] = useState({
@@ -12,6 +13,7 @@ const SignIn = ({ setOpenTab }) => {
     email: "",
     password: "",
   });
+  const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
   const inputHandler = (name, value) => {
     setInputField((prevState) => ({
@@ -49,6 +51,7 @@ const SignIn = ({ setOpenTab }) => {
   };
 
   const submitButton = async () => {
+    setIsLoading(true);
     if (!checkAndSetValidationsErrors()) {
       const status = await signIn("credentials", {
         redirect: false,
@@ -57,10 +60,13 @@ const SignIn = ({ setOpenTab }) => {
         callbackUrl: "/",
       });
       if (status.ok) {
+        setIsLoading(false);
         router.push(status.url);
       } else {
+        setIsLoading(false);
       }
     }
+    setIsLoading(false);
   };
   return (
     <div className="mx-auto flex flex-col items-center justify-center px-6 py-8">
@@ -117,10 +123,11 @@ const SignIn = ({ setOpenTab }) => {
               </a>
             </div>
             <button
+              disabled={isLoading}
               onClick={submitButton}
               className="bg-blue-600 hover:bg-blue-700 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 w-full rounded-lg px-5 py-2.5 text-center text-sm font-medium text-white focus:outline-none focus:ring-4"
             >
-              Sign In
+              {isLoading ? <Spinner /> : "Sign In"}
             </button>
             <p className="text-sm font-light text-gray-500 dark:text-gray-400">
               Don’t have an account yet?{" "}

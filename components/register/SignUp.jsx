@@ -1,4 +1,5 @@
 import { useState } from "react";
+import Spinner from "../blog/Spinner";
 
 const SignUp = ({ setOpenTab }) => {
   const [inputField, setInputField] = useState({
@@ -14,7 +15,7 @@ const SignUp = ({ setOpenTab }) => {
     password: "",
     confirmPasword: "",
   });
-
+  const [isLoading, setIsLoading] = useState(false);
   const inputHandler = (name, value) => {
     setInputField((prevState) => ({
       ...prevState,
@@ -64,6 +65,7 @@ const SignUp = ({ setOpenTab }) => {
   };
 
   const submitButton = async () => {
+    setIsLoading(true);
     if (!checkAndSetValidationsErrors()) {
       await fetch("/api/auth/signup", {
         method: "POST",
@@ -73,11 +75,14 @@ const SignUp = ({ setOpenTab }) => {
         .then((res) => res.json())
         .then((data) => {
           if (data.status == 1) {
+            setIsLoading(false);
             setOpenTab(1);
           } else {
+            setIsLoading(false);
           }
         });
     }
+    setIsLoading(false);
   };
   return (
     <div className="mx-auto flex flex-col items-center justify-center px-6 py-8">
@@ -171,10 +176,11 @@ const SignUp = ({ setOpenTab }) => {
               </a>
             </div>
             <button
+              disabled={isLoading}
               onClick={submitButton}
               className="bg-blue-600 hover:bg-primary-700 focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800 w-full rounded-lg px-5 py-2.5 text-center text-sm font-medium text-white focus:outline-none focus:ring-4"
             >
-              Sign Up
+              {isLoading ? <Spinner /> : "Sign Up"}
             </button>
             <p className="text-sm font-light text-gray-500 dark:text-gray-400">
               Don’t have an account yet?{" "}

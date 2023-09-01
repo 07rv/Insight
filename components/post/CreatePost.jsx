@@ -6,6 +6,7 @@ import { v4 as uuid } from "uuid";
 import { useSession } from "next-auth/react";
 
 import dynamic from "next/dynamic";
+import Spinner from "../blog/Spinner";
 const Editor = dynamic(import("../editor/Editor"), {
   ssr: false,
 });
@@ -22,7 +23,7 @@ const CreatePost = ({ options }) => {
     file: "",
     category: "",
   });
-
+  const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
   const { data: session } = useSession();
   const setErrorMessage = (name, value) => {
@@ -53,6 +54,7 @@ const CreatePost = ({ options }) => {
   };
 
   const submitButton = async () => {
+    setIsLoading(true);
     if (!checkAndSetValidationsErrors()) {
       const fileName = `posts/${uuid()}.${file.name.split(".").pop()}`;
       const storageRef = ref(storage, `${fileName}`);
@@ -72,13 +74,16 @@ const CreatePost = ({ options }) => {
             .then((res) => res.json())
             .then((data) => {
               if (data.status == 1) {
+                setIsLoading(false);
                 router.push("/");
               } else {
+                setIsLoading(false);
               }
             });
         });
       });
     }
+    setIsLoading(false);
   };
   return (
     <>
@@ -211,10 +216,11 @@ const CreatePost = ({ options }) => {
             </div>
 
             <button
+              disabled={isLoading}
               onClick={submitButton}
               className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
             >
-              Create
+              {isLoading ? <Spinner /> : "Create"}
             </button>
           </div>
         </div>

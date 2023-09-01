@@ -7,6 +7,7 @@ export default function Create({ options }) {
     <>
       <Head>
         <title>Create</title>
+        <link rel="icon" href="/favicon.ico" sizes="any" />
       </Head>
       <CreatePost options={options} />
     </>

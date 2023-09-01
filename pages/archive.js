@@ -6,6 +6,7 @@ export default function Archive() {
     <>
       <Head>
         <title>Archive</title>
+        <link rel="icon" href="/favicon.ico" sizes="any" />
       </Head>
       <Archivepage />
     </>
