@@ -25,7 +25,13 @@ const VerifyEmail = () => {
   return (
     <div className="mx-auto flex flex-col items-center justify-center px-6 py-8">
       <div className="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-        <img className="rounded-t-lg" src="/img/preview.jpeg" alt="" />
+        <div className="p-3">
+          <img
+            className="m-auto rounded-t-lg h-32"
+            src="/img/account.png"
+            alt=""
+          />
+        </div>
 
         <div className="p-5">
           <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
@@ -59,7 +65,7 @@ const VerifyEmail = () => {
           </button>
           {showMsg && (
             <div
-              className="mt-2 flex items-center p-2 text-sm text-green-800 border border-green-300 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400 dark:border-green-800 text-center"
+              className="mt-4 flex items-center p-2 text-sm text-green-800 border border-green-300 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400 dark:border-green-800 text-center"
               role="alert"
             >
               <svg
@@ -71,7 +77,12 @@ const VerifyEmail = () => {
               >
                 <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
               </svg>
-              <div>Email Verified</div>
+
+              <div>
+                {" "}
+                <span className="font-medium">Email Verified!</span> Now you can
+                login
+              </div>
             </div>
           )}
         </div>
