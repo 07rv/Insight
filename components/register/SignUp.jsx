@@ -1,6 +1,6 @@
 import { useState } from "react";
 import Spinner from "../blog/Spinner";
-import SignUpVerification from "./SignUpVerification";
+import SignUpVerification from "../email/SignUpVerification";
 
 const SignUp = ({ setOpenTab }) => {
   const [inputField, setInputField] = useState({

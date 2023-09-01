@@ -2,12 +2,23 @@ import { useState } from "react";
 
 const SignUpVerification = ({ setOpenVerifyEmail, EmailId, setOpenTab }) => {
   const [show, setShow] = useState(false);
-  const sendVerificationEmail = () => {
-    setShow(true);
-    const timer = setTimeout(() => {
-      setOpenVerifyEmail(false);
-      setOpenTab(1);
-    }, 3000);
+  const sendVerificationEmail = async () => {
+    await fetch("/api/auth/sendemail", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ EmailId }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.status == 1) {
+          setShow(true);
+          const timer = setTimeout(() => {
+            setOpenVerifyEmail(false);
+            setOpenTab(1);
+          }, 3000);
+        } else {
+        }
+      });
   };
   return (
     <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
@@ -73,7 +84,7 @@ const SignUpVerification = ({ setOpenVerifyEmail, EmailId, setOpenTab }) => {
                   </svg>
                   <span className="sr-only">Info</span>
                   <div>
-                    Email sent on registered on{" "}
+                    We’ve sent you a verification link to the email address{" "}
                     <span className="font-medium">{EmailId}</span>{" "}
                   </div>
                 </div>
