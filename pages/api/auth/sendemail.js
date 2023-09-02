@@ -34,7 +34,7 @@ export default async function handler(req, res) {
         from: process.env.NODEMAILER_EMAIL,
         to: EmailId,
         subject: "Email Verification",
-        text: emailBody,
+        html: emailBody,
       };
 
       transporter.sendMail(mailOptions, function (error, info) {
