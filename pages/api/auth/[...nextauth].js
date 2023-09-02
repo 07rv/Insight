@@ -25,6 +25,9 @@ export default NextAuth({
         if (!checkPassword || result.email !== credentials.email) {
           throw new Error("Username or Password doesn't match");
         }
+        if (!result.isVerified) {
+          throw new Error("User is not verified");
+        }
         const user = {
           id: result._id,
           name: result.name,
