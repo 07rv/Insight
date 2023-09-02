@@ -1,12 +1,17 @@
 import { useState } from "react";
 
-const SignUpVerification = ({ setOpenVerifyEmail, EmailId, setOpenTab }) => {
+const SignUpVerification = ({
+  setOpenVerifyEmail,
+  EmailId,
+  Name,
+  setOpenTab,
+}) => {
   const [show, setShow] = useState(false);
   const sendVerificationEmail = async () => {
     await fetch("/api/auth/sendemail", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ EmailId }),
+      body: JSON.stringify({ EmailId, Name }),
     })
       .then((res) => res.json())
       .then((data) => {

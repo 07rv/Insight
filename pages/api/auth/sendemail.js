@@ -1,6 +1,8 @@
+import { EmailTemplate } from "@/components/ui/EmailTemplate";
 import dbConnect from "@/database/mongodb";
 const { SignJWT } = require("jose");
 const nodemailer = require("nodemailer");
+
 export default async function handler(req, res) {
   await dbConnect();
 
@@ -9,7 +11,7 @@ export default async function handler(req, res) {
       res.status(404).json({ status: 0, error: "Don't have body" });
 
     try {
-      const { EmailId } = req.body;
+      const { EmailId, Name } = req.body;
       const secretKey = new TextEncoder().encode(process.env.NEXT_SECRET);
 
       const jwt = await new SignJWT({ email: EmailId })
@@ -19,6 +21,7 @@ export default async function handler(req, res) {
         .setExpirationTime("10m")
         .sign(secretKey);
 
+      const emailBody = EmailTemplate(jwt, Name);
       var transporter = nodemailer.createTransport({
         service: "gmail",
         auth: {
@@ -31,7 +34,7 @@ export default async function handler(req, res) {
         from: process.env.NODEMAILER_EMAIL,
         to: EmailId,
         subject: "Email Verification",
-        text: "wdefrgthyjuk,jmhgbfedwdfvbgh",
+        text: emailBody,
       };
 
       transporter.sendMail(mailOptions, function (error, info) {

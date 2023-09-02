@@ -204,6 +204,7 @@ const SignUp = ({ setOpenTab }) => {
         <SignUpVerification
           setOpenVerifyEmail={setOpenVerifyEmail}
           EmailId={inputField.email}
+          Name={inputField.name}
           setOpenTab={setOpenTab}
         />
       )}
