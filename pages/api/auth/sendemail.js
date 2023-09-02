@@ -21,7 +21,11 @@ export default async function handler(req, res) {
         .setExpirationTime("10m")
         .sign(secretKey);
 
-      const emailBody = EmailTemplate(jwt, Name);
+      const emailBody = EmailTemplate(
+        jwt,
+        Name,
+        process.env.NEXT_PUBLIC_BASE_URL
+      );
       var transporter = nodemailer.createTransport({
         service: "gmail",
         auth: {
