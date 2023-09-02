@@ -4,7 +4,7 @@ import SignUpVerification from "../email/SignUpVerification";
 
 const SignUp = ({ setOpenTab }) => {
   const [inputField, setInputField] = useState({
-    email: "",
+    email: "28vrohit@gmail.com",
     name: "",
     password: "",
     confirmPasword: "",
@@ -17,7 +17,7 @@ const SignUp = ({ setOpenTab }) => {
     confirmPasword: "",
   });
   const [isLoading, setIsLoading] = useState(false);
-  const [openVerifyEmail, setOpenVerifyEmail] = useState(false);
+  const [openVerifyEmail, setOpenVerifyEmail] = useState(true);
   const inputHandler = (name, value) => {
     setInputField((prevState) => ({
       ...prevState,
