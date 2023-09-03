@@ -8,7 +8,7 @@ const ShareButton = () => {
     <>
       <button
         id="sidebar-multi-level-sidebar"
-        className="fixed top-1/2 left-0 z-40 w-24 transition-transform"
+        className="fixed top-1/2 left-0 z-40 w-24 transition-transform animate fadeInLeft three"
         aria-label="Sidebar"
         onClick={() => {
           setShow(!show);
