@@ -1,7 +1,11 @@
-import React from "react";
-
-const SearchResult = () => {
-  return <div>SearchResult</div>;
+const SearchResult = ({ results }) => {
+  return (
+    <>
+      {results.map((result, id) => {
+        return <div key={id}>{result.name}</div>;
+      })}
+    </>
+  );
 };
 
 export default SearchResult;

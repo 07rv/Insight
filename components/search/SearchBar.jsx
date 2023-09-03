@@ -1,15 +1,32 @@
 import { useState } from "react";
 
-const SearchBar = () => {
+const SearchBar = ({ setResults }) => {
   const [inputSearch, setInputSearch] = useState("");
 
+  const fetchData = async (value) => {
+    await fetch("https://jsonplaceholder.typicode.com/users")
+      .then((res) => res.json())
+      .then((data) => {
+        const results = data.filter((user) => {
+          return (
+            value &&
+            user &&
+            user.name &&
+            user.name.toLowerCase().includes(value)
+          );
+        });
+        setResults(results);
+      });
+  };
+
+  const inputHandler = (value) => {
+    setInputSearch(value);
+    fetchData(value);
+  };
   return (
     <div>
       <form>
-        <label
-          for="default-search"
-          className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white"
-        >
+        <label className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">
           Search
         </label>
         <div className="relative">
@@ -39,7 +56,7 @@ const SearchBar = () => {
             required
             defaultValue={inputSearch}
             onChange={(e) => {
-              setInputSearch(e.target.value);
+              inputHandler(e.target.value);
             }}
           />
         </div>
