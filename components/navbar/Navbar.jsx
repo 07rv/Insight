@@ -8,6 +8,7 @@ import Container from "../blog/Container";
 import Link from "next/link";
 import cx from "clsx";
 import { ChevronDownIcon } from "@heroicons/react/24/solid";
+import Share from "../share/Share";
 
 const Navbar = () => {
   const leftmenu = [
@@ -212,6 +213,7 @@ const Navbar = () => {
           )}
         </Disclosure>
       </nav>
+      <Share />
     </Container>
   );
 };
