@@ -1,12 +1,18 @@
 import { ShareIcon } from "@heroicons/react/24/solid";
+import { useState } from "react";
+import Share from "./Share";
 
 const ShareButton = () => {
+  const [show, setShow] = useState(false);
   return (
     <>
       <button
         id="sidebar-multi-level-sidebar"
         className="fixed top-1/2 left-0 z-40 w-24 transition-transform"
         aria-label="Sidebar"
+        onClick={() => {
+          setShow(!show);
+        }}
       >
         <div className="h-full py-1 overflow-y-auto bg-gray-50 dark:bg-gray-800 dark:hover:bg-gray-700 rounded-r-full">
           <ul className="space-y-2 font-medium">
@@ -24,6 +30,7 @@ const ShareButton = () => {
           </ul>
         </div>
       </button>
+      {show && <Share open={show} setShow={setShow} />}
     </>
   );
 };
