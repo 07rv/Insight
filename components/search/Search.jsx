@@ -5,7 +5,7 @@ import SearchResult from "./SearchResult";
 const Search = () => {
   const [results, setResults] = useState([]);
   return (
-    <div className="p-2">
+    <div className="px-2">
       <SearchBar setResults={setResults} />
       <SearchResult results={results} />
     </div>
