@@ -1,0 +1,32 @@
+import { ShareIcon } from "@heroicons/react/24/solid";
+
+const ShareButton = () => {
+  return (
+    <>
+      {" "}
+      <aside
+        id="sidebar-multi-level-sidebar"
+        class="fixed top-1/2 left-0 z-40 w-24 transition-transform"
+        aria-label="Sidebar"
+      >
+        <div class="h-full py-1 overflow-y-auto bg-gray-50 dark:bg-gray-800 rounded-r-full">
+          <ul class="space-y-2 font-medium">
+            <li>
+              <a
+                href="#"
+                class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
+              >
+                <div class="w-5 h-5">
+                  <ShareIcon />
+                </div>
+                <span class="flex-1 ml-3 whitespace-nowrap">Share</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </aside>
+    </>
+  );
+};
+
+export default ShareButton;

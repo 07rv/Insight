@@ -1,5 +1,6 @@
 import Navbar from "../navbar/Navbar";
 import Footer from "../footer/Footer";
+import ShareButton from "../share/ShareButton";
 
 const Layout = ({ children }) => {
   return (
@@ -7,6 +8,7 @@ const Layout = ({ children }) => {
       <Navbar />
       <main>{children}</main>
       <Footer />
+      <ShareButton />
     </>
   );
 };
