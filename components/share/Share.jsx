@@ -1,6 +1,9 @@
 import { useEffect } from "react";
+import { useRouter } from "next/router";
 
 const Share = ({ open, setShow }) => {
+  const router = useRouter();
+  const currentUrl = `${process.env.NEXT_PUBLIC_BASE_URL}${router.asPath}`;
   useEffect(() => {
     function handleClickOutside(event) {
       if (open && !event.target.closest(".share")) {
