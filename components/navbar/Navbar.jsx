@@ -1,278 +1,193 @@
-"use client";
-import { Fragment } from "react";
-import { Menu, Transition, Disclosure } from "@headlessui/react";
+import { useState } from "react";
+import Link from "next/link";
 import { useSession } from "next-auth/react";
 import { signOut } from "next-auth/react";
 
-import Container from "../blog/Container";
-import Link from "next/link";
-import cx from "clsx";
-import { ChevronDownIcon } from "@heroicons/react/24/solid";
+const menu = [
+  {
+    label: "Home",
+    href: "/",
+  },
+  {
+    label: "Archive",
+    href: "/archive",
+  },
+  {
+    label: "Contact",
+    href: "/contact",
+  },
+];
 
 const Navbar = () => {
-  const leftmenu = [
-    {
-      label: "Home",
-      href: "/",
-    },
-    {
-      label: "Archive",
-      href: "/archive",
-      children: [
-        // {
-        //   title: "Archive",
-        //   href: "/archive",
-        // },
-      ],
-    },
-  ];
-
-  const rightmenu = [
-    {
-      label: "Contact",
-      href: "/contact",
-    },
-  ];
-
-  const mobilemenu = [...leftmenu, ...rightmenu];
+  const [openMenu, setOpenMenu] = useState(false);
   const { data: session } = useSession();
   return (
-    <Container>
-      <nav>
-        <Disclosure>
-          {({ open }) => (
-            <>
-              <div className="flex flex-wrap justify-between md:flex-nowrap md:gap-10">
-                <div className="order-1 hidden w-full flex-col items-center justify-start md:order-none md:flex md:w-auto md:flex-1 md:flex-row md:justify-end">
-                  {leftmenu.map((item, index) => (
-                    <Fragment key={`${item.label}${index}`}>
-                      {item.children && item.children.length > 0 ? (
-                        <DropdownMenu
-                          menu={item}
-                          key={`${item.label}${index}`}
-                          items={item.children}
-                        />
-                      ) : (
-                        <Link
-                          href={item.href}
-                          key={`${item.label}${index}`}
-                          className="hover:text-blue-500 px-5 py-2 font-medium text-gray-600  dark:text-gray-400 dark:hover:text-blue-500"
-                          target={item.external ? "_blank" : ""}
-                          rel={item.external ? "noopener" : ""}
-                        >
-                          {item.label}
-                        </Link>
-                      )}
-                    </Fragment>
-                  ))}
-                </div>
-                <div className="flex w-full items-center justify-between md:w-auto">
-                  <Link href="/" className="w-28 dark:hidden">
-                    <span className="block text-center font-Italianno text-5xl font-semibold">
-                      Insight
-                    </span>
-                  </Link>
-                  <Link href="/" className="hidden w-28 dark:block">
-                    <span className="block text-center font-Italianno text-5xl font-semibold">
-                      Insight
-                    </span>
-                  </Link>
-                  <Disclosure.Button
-                    aria-label="Toggle Menu"
-                    className="ml-auto rounded-md px-2 py-1 text-gray-500 focus:text-blue-500 focus:outline-none dark:text-gray-300 md:hidden"
+    <nav className=" border-gray-200">
+      <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
+        <a href="https://flowbite.com/" className="flex items-center">
+          <span className="font-Italianno self-center text-5xl font-semibold whitespace-nowrap dark:text-white">
+            Insight
+          </span>
+        </a>
+        <div className="flex md:order-2">
+          <button
+            onClick={(e) => {
+              setOpenMenu(!openMenu);
+            }}
+            type="button"
+            className="md:hidden text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 mr-1"
+          >
+            <svg
+              className="w-5 h-5"
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 20 20"
+            >
+              <path
+                stroke="currentColor"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"
+              />
+            </svg>
+            <span className="sr-only">Search</span>
+          </button>
+          <div className="relative hidden md:block">
+            <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+              <svg
+                className="w-4 h-4 text-gray-500 dark:text-gray-400"
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 20 20"
+              >
+                <path
+                  stroke="currentColor"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"
+                />
+              </svg>
+              <span className="sr-only">Search icon</span>
+            </div>
+            <input
+              type="text"
+              id="search-navbar"
+              className="block w-full p-2 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              placeholder="Search..."
+            />
+          </div>
+          <button
+            onClick={(e) => {
+              setOpenMenu(!openMenu);
+            }}
+            type="button"
+            className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
+          >
+            <span className="sr-only">Open main menu</span>
+            <svg
+              className="w-5 h-5"
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 17 14"
+            >
+              <path
+                stroke="currentColor"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                d="M1 1h15M1 7h15M1 13h15"
+              />
+            </svg>
+          </button>
+        </div>
+        <div
+          className={`items-center justify-between w-full md:flex md:w-auto md:order-1 ${
+            openMenu ? "" : "hidden"
+          }`}
+          id="navbar-search"
+        >
+          <div className="relative mt-3 md:hidden">
+            <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+              <svg
+                className="w-4 h-4 text-gray-500 dark:text-gray-400"
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 20 20"
+              >
+                <path
+                  stroke="currentColor"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"
+                />
+              </svg>
+            </div>
+            <input
+              type="text"
+              id="search-navbar"
+              className="block w-full p-2 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              placeholder="Search"
+            />
+          </div>
+          <ul className="flex flex-col p-4 md:p-0 mt-4 font-medium border border-gray-100 rounded-lg  md:flex-row md:space-x-8 md:mt-0 md:border-0  dark:border-gray-700">
+            {menu.map((item, key) => (
+              <li key={key}>
+                <Link
+                  href={item.href}
+                  className="hover:text-blue-500 block py-2 pl-3 pr-4 font-medium rounded md:bg-transparent  md:p-0 text-gray-600  dark:text-gray-400 dark:hover:text-blue-500 "
+                >
+                  {item.label}
+                </Link>
+              </li>
+            ))}
+            {session ? (
+              <>
+                <li>
+                  <Link
+                    href={`/author/${session.user._id}`}
+                    className="hover:text-blue-500 block py-2 pl-3 pr-4 font-medium rounded md:bg-transparent  md:p-0 text-gray-600  dark:text-gray-400 dark:hover:text-blue-500 "
                   >
-                    <svg
-                      className="h-6 w-6 fill-current"
-                      xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 0 24 24"
-                    >
-                      {open && (
-                        <path
-                          fillRule="evenodd"
-                          clipRule="evenodd"
-                          d="M18.278 16.864a1 1 0 0 1-1.414 1.414l-4.829-4.828-4.828 4.828a1 1 0 0 1-1.414-1.414l4.828-4.829-4.828-4.828a1 1 0 0 1 1.414-1.414l4.829 4.828 4.828-4.828a1 1 0 1 1 1.414 1.414l-4.828 4.829 4.828 4.828z"
-                        />
-                      )}
-                      {!open && (
-                        <path
-                          fillRule="evenodd"
-                          d="M4 5h16a1 1 0 0 1 0 2H4a1 1 0 1 1 0-2zm0 6h16a1 1 0 0 1 0 2H4a1 1 0 0 1 0-2zm0 6h16a1 1 0 0 1 0 2H4a1 1 0 0 1 0-2z"
-                        />
-                      )}
-                    </svg>
-                  </Disclosure.Button>
-                </div>
-
-                <div className="order-2 hidden w-full flex-col items-center justify-start md:order-none md:flex md:w-auto md:flex-1 md:flex-row">
-                  {rightmenu.map((item, index) => (
-                    <Fragment key={`${item.label}${index}`}>
-                      {item.children && item.children.length > 0 ? (
-                        <DropdownMenu
-                          menu={item}
-                          key={`${item.label}${index}`}
-                          items={item.children}
-                        />
-                      ) : (
-                        <Link
-                          href={item.href}
-                          key={`${item.label}${index}`}
-                          className="px-5 py-2  font-medium text-gray-600 hover:text-blue-500 dark:text-gray-400 dark:hover:text-blue-500"
-                          target={item.external ? "_blank" : ""}
-                          rel={item.external ? "noopener" : ""}
-                        >
-                          <span> {item.label}</span>
-                          {item.badge && (
-                            <span className="ml-2 rounded bg-blue-100 px-2 py-0.5 text-xs font-semibold text-blue-600 dark:bg-cyan-200 dark:text-blue-800 ">
-                              {item.badge}
-                            </span>
-                          )}
-                        </Link>
-                      )}
-                    </Fragment>
-                  ))}
-                  {session ? (
-                    <>
-                      <div
-                        onClick={(e) => {
-                          e.preventDefault();
-                          signOut();
-                        }}
-                        className="cursor-pointer px-5 py-2  font-medium text-gray-600 hover:text-blue-500 dark:text-gray-400 dark:hover:text-blue-500"
-                      >
-                        <span>Logout</span>
-                      </div>
-                      <div className="cursor-pointer px-5 py-2  font-medium text-gray-600 hover:text-blue-500 dark:text-gray-400 dark:hover:text-blue-500">
-                        <Link href={`/author/${session.user._id}`}>
-                          Profile
-                        </Link>
-                      </div>
-                    </>
-                  ) : (
-                    <Link
-                      href={"/register"}
-                      className="px-5 py-2  font-medium text-gray-600 hover:text-blue-500 dark:text-gray-400 dark:hover:text-blue-500"
-                    >
-                      <span>Login</span>
-                    </Link>
-                  )}
-                </div>
-              </div>
-              <Disclosure.Panel>
-                <div className="order-2 -ml-4 mt-4 flex w-full flex-col items-center justify-start md:hidden">
-                  {mobilemenu.map((item, index) => (
-                    <Fragment key={`${item.label}${index}`}>
-                      {item.children && item.children.length > 0 ? (
-                        <DropdownMenu
-                          menu={item}
-                          key={`${item.label}${index}`}
-                          items={item.children}
-                          mobile={true}
-                        />
-                      ) : (
-                        <Link
-                          href={item.href}
-                          key={`${item.label}${index}`}
-                          className="w-full px-5 py-2 text-sm font-medium text-gray-600 hover:text-blue-500 dark:text-gray-400"
-                          target={item.external ? "_blank" : ""}
-                          rel={item.external ? "noopener" : ""}
-                        >
-                          {item.label}
-                        </Link>
-                      )}
-                    </Fragment>
-                  ))}
-                  {session ? (
-                    <>
-                      <div
-                        onClick={(e) => {
-                          e.preventDefault();
-                          signOut();
-                        }}
-                        className=" cursor-pointer w-full px-5 py-2 text-sm font-medium text-gray-600 hover:text-blue-500 dark:text-gray-400"
-                      >
-                        Logout
-                      </div>
-                      <div className=" cursor-pointer w-full px-5 py-2 text-sm font-medium text-gray-600 hover:text-blue-500 dark:text-gray-400">
-                        <Link href={`/author/${session.user._id}`}>
-                          Profile
-                        </Link>
-                      </div>
-                    </>
-                  ) : (
-                    <Link
-                      href={"/register"}
-                      className="w-full px-5 py-2 text-sm font-medium text-gray-600 hover:text-blue-500 dark:text-gray-400"
-                    >
-                      Login
-                    </Link>
-                  )}
-                </div>
-              </Disclosure.Panel>
-            </>
-          )}
-        </Disclosure>
-      </nav>
-    </Container>
+                    Profile
+                  </Link>
+                </li>
+                <li
+                  onClick={(e) => {
+                    e.preventDefault();
+                    signOut();
+                  }}
+                >
+                  <Link
+                    href={""}
+                    className="hover:text-blue-500 block py-2 pl-3 pr-4 font-medium rounded md:bg-transparent  md:p-0 text-gray-600  dark:text-gray-400 dark:hover:text-blue-500 "
+                  >
+                    Logout
+                  </Link>
+                </li>
+              </>
+            ) : (
+              <>
+                <li>
+                  <Link
+                    href={"/register"}
+                    className="hover:text-blue-500 block py-2 pl-3 pr-4 font-medium rounded md:bg-transparent  md:p-0 text-gray-600  dark:text-gray-400 dark:hover:text-blue-500 "
+                  >
+                    Login
+                  </Link>
+                </li>
+              </>
+            )}
+          </ul>
+        </div>
+      </div>
+    </nav>
   );
 };
 
 export default Navbar;
-
-const DropdownMenu = ({ menu, items, mobile }) => {
-  return (
-    <Menu as="div" className={cx("relative text-left", mobile && "w-full")}>
-      {({ open }) => (
-        <>
-          <Menu.Button
-            className={cx(
-              "flex items-center gap-x-1 rounded-md px-5 py-2 text-sm font-medium  outline-none transition-all focus:outline-none focus-visible:text-indigo-500 focus-visible:ring-1 dark:focus-visible:bg-gray-800",
-              open
-                ? "text-blue-500 hover:text-blue-500"
-                : " text-gray-600 dark:text-gray-400 ",
-              mobile ? "w-full px-4 py-2 " : "inline-block px-4 py-2"
-            )}
-          >
-            <span>{menu.label}</span>
-            <ChevronDownIcon className="mt-0.5 h-4 w-4" />
-          </Menu.Button>
-          <Transition
-            as={Fragment}
-            enter="lg:transition lg:ease-out lg:duration-100"
-            enterFrom="lg:transform lg:opacity-0 lg:scale-95"
-            enterTo="lg:transform lg:opacity-100 lg:scale-100"
-            leave="lg:transition lg:ease-in lg:duration-75"
-            leaveFrom="lg:transform lg:opacity-100 lg:scale-100"
-            leaveTo="lg:transform lg:opacity-0 lg:scale-95"
-          >
-            <Menu.Items
-              className={cx(
-                "z-20 origin-top-left rounded-md  focus:outline-none  lg:absolute lg:left-0  lg:w-56",
-                !mobile && "bg-white shadow-lg  dark:bg-gray-800"
-              )}
-            >
-              <div className={cx(!mobile && "py-3")}>
-                {items.map((item, index) => (
-                  <Menu.Item as="div" key={`${item.title}${index}`}>
-                    {({ active }) => (
-                      <Link
-                        href={item?.path ? item.path : "#"}
-                        className={cx(
-                          "flex items-center space-x-2 px-5 py-2 text-sm lg:space-x-4",
-                          active
-                            ? "text-blue-500"
-                            : "text-gray-700 hover:text-blue-500 focus:text-blue-500 dark:text-gray-300"
-                        )}
-                      >
-                        <span> {item.title}</span>
-                      </Link>
-                    )}
-                  </Menu.Item>
-                ))}
-              </div>
-            </Menu.Items>
-          </Transition>
-        </>
-      )}
-    </Menu>
-  );
-};
