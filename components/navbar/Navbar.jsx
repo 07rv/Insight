@@ -22,7 +22,7 @@ const menu = [
 
 const Navbar = () => {
   const [openMenu, setOpenMenu] = useState(false);
-  const [openSearchMenu, setOpenSearchMenu] = useState(true);
+  const [openSearchMenu, setOpenSearchMenu] = useState(false);
   const { data: session } = useSession();
   return (
     <nav className=" border-gray-200">
