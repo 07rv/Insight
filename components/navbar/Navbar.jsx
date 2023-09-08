@@ -3,6 +3,7 @@ import Link from "next/link";
 import { useSession } from "next-auth/react";
 import { signOut } from "next-auth/react";
 import Search from "../search/Search";
+import SearchButton from "../search/SearchButton";
 
 const menu = [
   {
@@ -57,7 +58,7 @@ const Navbar = () => {
           </button>
 
           <div className="relative hidden md:block">
-            <Search />
+            <SearchButton />
           </div>
           <button
             onClick={(e) => {
@@ -91,7 +92,7 @@ const Navbar = () => {
           id="navbar-search"
         >
           <div className="relative mt-3 md:hidden">
-            <Search />
+            <SearchButton />
           </div>
           <ul className="flex flex-col p-4 md:p-0 mt-4 font-medium border border-gray-100 rounded-lg  md:flex-row md:space-x-8 md:mt-0 md:border-0  dark:border-gray-700">
             {menu.map((item, key) => (
