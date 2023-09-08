@@ -158,17 +158,15 @@ const Navbar = () => {
                   </Link>
                 </li>
                 <li
+                  className="cursor-pointer"
                   onClick={(e) => {
                     e.preventDefault();
                     signOut();
                   }}
                 >
-                  <Link
-                    href={""}
-                    className="hover:text-blue-500 block py-2 pl-3 pr-4 font-medium rounded md:bg-transparent  md:p-0 text-gray-600  dark:text-gray-400 dark:hover:text-blue-500 "
-                  >
+                  <div className="hover:text-blue-500 block py-2 pl-3 pr-4 font-medium rounded md:bg-transparent  md:p-0 text-gray-600  dark:text-gray-400 dark:hover:text-blue-500 ">
                     Logout
-                  </Link>
+                  </div>
                 </li>
               </>
             ) : (
