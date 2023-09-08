@@ -24,7 +24,7 @@ const SearchBar = ({ setResults }) => {
     fetchData(value);
   };
   return (
-    <div>
+    <div className="w-full">
       <form>
         <label className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">
           Search
