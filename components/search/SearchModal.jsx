@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import SearchResult from "./SearchResult";
 const SearchModal = ({ openSearchMenu, setOpenSearchMenu }) => {
   const [inputSearch, setInputSearch] = useState("");
   const [results, setResults] = useState([]);
@@ -108,15 +109,7 @@ const SearchModal = ({ openSearchMenu, setOpenSearchMenu }) => {
                 </button>
               </div>
               <div class="p-6 space-y-6">
-                <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400">
-                  {results.length > 0 && (
-                    <p className="text-base leading-relaxed text-gray-500 dark:text-gray-400">
-                      {results.map((result, id) => {
-                        return <div key={id}>{result.name}</div>;
-                      })}
-                    </p>
-                  )}
-                </p>
+                <SearchResult results={results} />
               </div>
               <div class="flex items-center p-6 space-x-2 border-t border-gray-200 rounded-b dark:border-gray-600">
                 <button
