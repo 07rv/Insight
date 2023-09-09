@@ -39,6 +39,13 @@ const Pagination = ({
 
   const displayedData = results.slice(startIndex, endIndex);
 
+  const redirection = (id) => {
+    setOpenSearchMenu(false);
+    setInputSearch("");
+    setResults([]);
+    router.push(`/post/${id}`);
+  };
+
   return (
     <>
       <div class="h-80 relative">
@@ -52,7 +59,10 @@ const Pagination = ({
                 >
                   <th
                     scope="row"
-                    class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                    onClick={() => {
+                      redirection(result._id);
+                    }}
+                    class="cursor-pointer px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
                   >
                     {result.title}
                   </th>
@@ -60,10 +70,7 @@ const Pagination = ({
                     <div className="relative h-5 w-5 flex-shrink-0">
                       <div
                         onClick={() => {
-                          setOpenSearchMenu(false);
-                          setInputSearch("");
-                          setResults([]);
-                          router.push(`/post/${result._id}`);
+                          redirection(result._id);
                         }}
                       >
                         <ArrowTopRightOnSquareIcon />
