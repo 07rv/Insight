@@ -1,3 +1,5 @@
+import { ArrowTopRightOnSquareIcon } from "@heroicons/react/24/solid";
+import Link from "next/link";
 const SearchResult = ({ results }) => {
   return (
     <div class="relative overflow-x-auto">
@@ -14,7 +16,13 @@ const SearchResult = ({ results }) => {
               >
                 {result.name}
               </th>
-              <td class="px-6 py-4">Silver</td>
+              <td class="px-6 py-4">
+                <div className="relative h-5 w-5 flex-shrink-0">
+                  <Link href={"/"}>
+                    <ArrowTopRightOnSquareIcon />
+                  </Link>
+                </div>
+              </td>
             </tr>
           ))}
         </tbody>
