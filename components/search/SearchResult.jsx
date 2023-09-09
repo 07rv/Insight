@@ -1,15 +1,35 @@
 import { ArrowTopRightOnSquareIcon } from "@heroicons/react/24/solid";
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/solid";
-import Link from "next/link";
+import { useRouter } from "next/router";
 import { useState } from "react";
 
-const SearchResult = ({ results }) => {
+const SearchResult = ({
+  results,
+  setOpenSearchMenu,
+  setInputSearch,
+  setResults,
+}) => {
   const itemsPerPage = 5;
-  return <Pagination results={results} itemsPerPage={itemsPerPage} />;
+  return (
+    <Pagination
+      results={results}
+      itemsPerPage={itemsPerPage}
+      setOpenSearchMenu={setOpenSearchMenu}
+      setInputSearch={setInputSearch}
+      setResults={setResults}
+    />
+  );
 };
 
-const Pagination = ({ results, itemsPerPage }) => {
+const Pagination = ({
+  results,
+  itemsPerPage,
+  setOpenSearchMenu,
+  setInputSearch,
+  setResults,
+}) => {
   const [currentPage, setCurrentPage] = useState(1);
+  const router = useRouter();
 
   const totalItems = results.length;
   const totalPages = Math.ceil(totalItems / itemsPerPage);
@@ -36,11 +56,18 @@ const Pagination = ({ results, itemsPerPage }) => {
                   >
                     {result.title}
                   </th>
-                  <td class="px-6 py-4">
+                  <td class="px-6 py-4 cursor-pointer">
                     <div className="relative h-5 w-5 flex-shrink-0">
-                      <Link href={"/"}>
+                      <div
+                        onClick={() => {
+                          setOpenSearchMenu(false);
+                          setInputSearch("");
+                          setResults([]);
+                          router.push(`/post/${result._id}`);
+                        }}
+                      >
                         <ArrowTopRightOnSquareIcon />
-                      </Link>
+                      </div>
                     </div>
                   </td>
                 </tr>

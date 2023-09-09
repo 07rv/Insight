@@ -104,7 +104,12 @@ const SearchModal = ({ openSearchMenu, setOpenSearchMenu, data }) => {
                 </button>
               </div>
               <div class="p-6 space-y-6">
-                <SearchResult results={results} />
+                <SearchResult
+                  setOpenSearchMenu={setOpenSearchMenu}
+                  results={results}
+                  setInputSearch={setInputSearch}
+                  setResults={setResults}
+                />
               </div>
               <div class="flex items-center p-6 space-x-2 border-t border-gray-200 rounded-b dark:border-gray-600">
                 <button
