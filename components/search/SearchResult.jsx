@@ -34,7 +34,7 @@ const Pagination = ({ results, itemsPerPage }) => {
                     scope="row"
                     class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
                   >
-                    {result.name}
+                    {result.title}
                   </th>
                   <td class="px-6 py-4">
                     <div className="relative h-5 w-5 flex-shrink-0">

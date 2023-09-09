@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { useSession } from "next-auth/react";
 import { signOut } from "next-auth/react";
@@ -24,6 +24,20 @@ const Navbar = () => {
   const [openMenu, setOpenMenu] = useState(false);
   const [openSearchMenu, setOpenSearchMenu] = useState(false);
   const { data: session } = useSession();
+  const [posts, setPosts] = useState([]);
+  useEffect(() => {
+    fetch(`/api/post`, {
+      method: "GET",
+      headers: { "Content-Type": "application/json" },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.status == 1) {
+          setPosts(data.posts);
+        } else {
+        }
+      });
+  }, []);
   return (
     <nav className=" border-gray-200">
       <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
@@ -153,10 +167,13 @@ const Navbar = () => {
           </ul>
         </div>
       </div>
-      <SearchModal
-        openSearchMenu={openSearchMenu}
-        setOpenSearchMenu={setOpenSearchMenu}
-      />
+      {posts.length > 0 && (
+        <SearchModal
+          openSearchMenu={openSearchMenu}
+          setOpenSearchMenu={setOpenSearchMenu}
+          data={posts}
+        />
+      )}
     </nav>
   );
 };

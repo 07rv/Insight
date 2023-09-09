@@ -19,9 +19,9 @@ const SearchModal = ({ openSearchMenu, setOpenSearchMenu, data }) => {
   }, [openSearchMenu, setOpenSearchMenu]);
 
   const fetchData = async (value) => {
-    const results = data.filter((user) => {
+    const results = data.filter((item) => {
       return (
-        value && user && user.name && user.name.toLowerCase().includes(value)
+        value && item && item.title && item.title.toLowerCase().includes(value)
       );
     });
     setResults(results);
