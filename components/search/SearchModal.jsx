@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import SearchResult from "./SearchResult";
-const SearchModal = ({ openSearchMenu, setOpenSearchMenu }) => {
+const SearchModal = ({ openSearchMenu, setOpenSearchMenu, data }) => {
   const [inputSearch, setInputSearch] = useState("");
   const [results, setResults] = useState([]);
 
@@ -17,21 +17,16 @@ const SearchModal = ({ openSearchMenu, setOpenSearchMenu }) => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [openSearchMenu, setOpenSearchMenu]);
+
   const fetchData = async (value) => {
-    await fetch("https://jsonplaceholder.typicode.com/users")
-      .then((res) => res.json())
-      .then((data) => {
-        const results = data.filter((user) => {
-          return (
-            value &&
-            user &&
-            user.name &&
-            user.name.toLowerCase().includes(value)
-          );
-        });
-        setResults(results);
-      });
+    const results = data.filter((user) => {
+      return (
+        value && user && user.name && user.name.toLowerCase().includes(value)
+      );
+    });
+    setResults(results);
   };
+
   const inputHandler = (value) => {
     setInputSearch(value);
     fetchData(value);

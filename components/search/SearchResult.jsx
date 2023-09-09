@@ -21,7 +21,7 @@ const Pagination = ({ results, itemsPerPage }) => {
 
   return (
     <>
-      <div class="h-64">
+      <div class="h-80 relative">
         <div class="relative overflow-x-auto">
           <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
             <tbody>
@@ -50,7 +50,7 @@ const Pagination = ({ results, itemsPerPage }) => {
         </div>
 
         {displayedData.length > 0 && (
-          <div className="mt-10 flex items-center justify-center">
+          <div className="mt-5 flex items-center justify-center absolute bottom-0 inset-x-0">
             <nav
               className="isolate inline-flex -space-x-px rounded-md shadow-sm"
               aria-label="Pagination"
