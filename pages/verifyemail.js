@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 import NotFound from "./404";
 import VerifyEmail from "@/components/email/VerifyEmail";
 
-export default function Verify() {
+export default function Home() {
   const router = useRouter();
   const { token } = router.query;
   if (!token) return <NotFound />;
