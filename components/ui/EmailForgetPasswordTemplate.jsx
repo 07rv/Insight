@@ -287,7 +287,7 @@ export function EmailForgetPasswordTemplate(token, name, baseurl) {
                                   bgcolor="#7289DA"
                                 >
                                   <a
-                                    href="${baseurl}/verifyemail?token=${token}"
+                                    href="${baseurl}/forgetpassword?token=${token}"
                                     style="
                                       text-decoration: none;
                                       line-height: 100%;
