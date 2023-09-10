@@ -6,6 +6,9 @@ export default async function handler(req, res) {
   await dbConnect();
 
   if (req.method === "POST") {
+    if (!req.body)
+      res.status(404).json({ status: 0, error: "Don't have body" });
+
     const { token } = req.body;
     try {
       const secretKey = new TextEncoder().encode(process.env.NEXT_SECRET);
