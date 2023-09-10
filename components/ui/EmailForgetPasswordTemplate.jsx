@@ -1,4 +1,4 @@
-export function EmailTemplate(token, name, baseurl) {
+export function EmailForgetPasswordTemplate(token, name, baseurl) {
   const body = `
   <head>
     <title>Email Verify</title>

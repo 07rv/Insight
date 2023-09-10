@@ -11,7 +11,7 @@ const SignUpVerification = ({
     await fetch("/api/auth/sendemail", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ EmailId, Name }),
+      body: JSON.stringify({ EmailId, Name, Type: "EmailVerification" }),
     })
       .then((res) => res.json())
       .then((data) => {

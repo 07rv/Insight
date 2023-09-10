@@ -38,6 +38,24 @@ const ForgetPassword = ({ open, setOpen }) => {
   };
   const submitButton = async () => {
     if (!checkAndSetValidationsErrors()) {
+      await fetch("/api/auth/sendemail", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          EmailId: inputField.email,
+          Type: "ForgetPassword",
+        }),
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          if (data.status == 1) {
+            setShow(true);
+            const timer = setTimeout(() => {
+              setShow(false);
+            }, 4000);
+          } else {
+          }
+        });
     }
   };
   return (
@@ -87,8 +105,8 @@ const ForgetPassword = ({ open, setOpen }) => {
                       d="M10 11V6m0 8h.01M19 10a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
                     />
                   </svg>
-                  <h2 className="mb-5 font-normal text-gray-500 dark:text-gray-400">
-                    Forget Password
+                  <h2 className="mb-5 mx-10 font-normal text-gray-500 dark:text-gray-400">
+                    Please enter your registered email address
                   </h2>
                   <div className="space-y-4 md:space-y-6 mb-3">
                     <div>
@@ -127,7 +145,7 @@ const ForgetPassword = ({ open, setOpen }) => {
                       </svg>
                       <span className="sr-only">Info</span>
                       <div>
-                        We’ve sent you a link to the email address
+                        We’ve sent you a link to the email address{" "}
                         <span className="font-medium">{inputField.email}</span>
                       </div>
                     </div>
