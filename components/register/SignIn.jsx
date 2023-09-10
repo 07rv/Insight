@@ -3,6 +3,7 @@ import { useState } from "react";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/router";
 import Spinner from "../blog/Spinner";
+import ForgetPassword from "./ForgetPassword";
 
 const SignIn = ({ setOpenTab }) => {
   const [inputField, setInputField] = useState({
@@ -14,6 +15,7 @@ const SignIn = ({ setOpenTab }) => {
     password: "",
   });
   const [isLoading, setIsLoading] = useState(false);
+  const [openForgetPassword, setOpenForgetPassword] = useState(false);
   const router = useRouter();
   const inputHandler = (name, value) => {
     setInputField((prevState) => ({
@@ -115,12 +117,14 @@ const SignIn = ({ setOpenTab }) => {
               )}
             </div>
             <div className="flex items-center justify-between">
-              <a
-                href="#"
-                className="text-blue-600 dark:text-blue-500 text-sm font-medium hover:underline"
+              <div
+                onClick={() => {
+                  setOpenForgetPassword(true);
+                }}
+                className="text-blue-600 dark:text-blue-500 text-sm font-medium hover:underline cursor-pointer"
               >
                 Forgot password?
-              </a>
+              </div>
             </div>
             <button
               disabled={isLoading}
@@ -145,6 +149,12 @@ const SignIn = ({ setOpenTab }) => {
           </div>
         </div>
       </div>
+      {openForgetPassword && (
+        <ForgetPassword
+          open={openForgetPassword}
+          setOpen={setOpenForgetPassword}
+        />
+      )}
     </div>
   );
 };

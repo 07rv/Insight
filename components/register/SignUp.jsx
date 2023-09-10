@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Spinner from "../blog/Spinner";
 import SignUpVerification from "../email/SignUpVerification";
+import ForgetPassword from "./ForgetPassword";
 
 const SignUp = ({ setOpenTab }) => {
   const [inputField, setInputField] = useState({
@@ -18,6 +19,7 @@ const SignUp = ({ setOpenTab }) => {
   });
   const [isLoading, setIsLoading] = useState(false);
   const [openVerifyEmail, setOpenVerifyEmail] = useState(false);
+  const [openForgetPassword, setOpenForgetPassword] = useState(false);
   const inputHandler = (name, value) => {
     setInputField((prevState) => ({
       ...prevState,
@@ -170,12 +172,14 @@ const SignUp = ({ setOpenTab }) => {
               )}
             </div>
             <div className="flex items-center justify-between">
-              <a
-                href="#"
-                className="text-blue-600 dark:text-blue-500 text-sm font-medium hover:underline"
+              <div
+                onClick={() => {
+                  setOpenForgetPassword(true);
+                }}
+                className="text-blue-600 dark:text-blue-500 text-sm font-medium hover:underline cursor-pointer"
               >
                 Forgot password?
-              </a>
+              </div>
             </div>
             <button
               disabled={isLoading}
@@ -206,6 +210,12 @@ const SignUp = ({ setOpenTab }) => {
           EmailId={inputField.email}
           Name={inputField.name}
           setOpenTab={setOpenTab}
+        />
+      )}
+      {openForgetPassword && (
+        <ForgetPassword
+          open={openForgetPassword}
+          setOpen={setOpenForgetPassword}
         />
       )}
     </div>
