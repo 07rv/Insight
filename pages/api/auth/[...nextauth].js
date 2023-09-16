@@ -60,27 +60,27 @@ export default NextAuth({
         return session;
       }
     },
-    async signIn({ user, account, profile }) {
-      try {
-        dbConnect().catch((error) => {
-          error: "Connection Failed...!";
-        });
-        const result = await Users.findOne({ email: user.email });
-        if (!result) {
-          const newuser = new Users({
-            name: user.name,
-            email: user.email,
-            profileImg: user.image,
-            isVerified: true,
-            password: await hash(account.access_token, 12),
-            about: "",
-          });
-          newuser.save();
-        }
-        return true;
-      } catch (error) {
-        return false;
-      }
-    },
+    // async signIn({ user, account, profile }) {
+    //   try {
+    //     dbConnect().catch((error) => {
+    //       error: "Connection Failed...!";
+    //     });
+    //     const result = await Users.findOne({ email: user.email });
+    //     if (!result) {
+    //       const newuser = new Users({
+    //         name: user.name,
+    //         email: user.email,
+    //         profileImg: user.image,
+    //         isVerified: true,
+    //         password: await hash(account.access_token, 12),
+    //         about: "",
+    //       });
+    //       newuser.save();
+    //     }
+    //     return true;
+    //   } catch (error) {
+    //     return false;
+    //   }
+    // },
   },
 });
