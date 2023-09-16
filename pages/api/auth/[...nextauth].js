@@ -4,7 +4,7 @@ import GoogleProvider from "next-auth/providers/google";
 import GitHubProvider from "next-auth/providers/github";
 import dbConnect from "@/database/mongodb";
 import Users from "@/modal/User";
-import { compare } from "bcrypt";
+import { compare, hash } from "bcrypt";
 
 export default NextAuth({
   providers: [
@@ -48,9 +48,39 @@ export default NextAuth({
   ],
   secret: process.env.NEXT_SECRET,
   callbacks: {
-    async session({ session, token }) {
-      if (token) session.user._id = token.sub;
-      return session;
+    async session({ session, token, user }) {
+      try {
+        dbConnect().catch((error) => {
+          error: "Connection Failed...!";
+        });
+        const result = await Users.findOne({ email: token.email });
+        if (token) session.user._id = result._id;
+        return session;
+      } catch (error) {
+        return session;
+      }
+    },
+    async signIn({ user, account, profile }) {
+      try {
+        dbConnect().catch((error) => {
+          error: "Connection Failed...!";
+        });
+        const result = await Users.findOne({ email: user.email });
+        if (!result) {
+          const newuser = new Users({
+            name: user.name,
+            email: user.email,
+            profileImg: user.image,
+            isVerified: true,
+            password: await hash(account.access_token, 12),
+            about: "",
+          });
+          newuser.save();
+        }
+        return true;
+      } catch (error) {
+        return false;
+      }
     },
   },
 });
