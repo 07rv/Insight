@@ -61,7 +61,6 @@ export default NextAuth({
       }
     },
     async signIn({ user, account, profile }) {
-      console.log(user, profile);
       try {
         dbConnect().catch((error) => {
           error: "Connection Failed...!";
