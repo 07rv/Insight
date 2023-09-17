@@ -27,6 +27,7 @@ const Editor = ({ value, setContent, setErrorField }) => {
   };
   const formats = [
     "header",
+    "font",
     "bold",
     "italic",
     "underline",
