@@ -35,6 +35,7 @@ const Editor = ({ value, setContent, setErrorField }) => {
     "list",
     "bullet",
     "indent",
+    "align",
     "link",
     "image",
     "color",
