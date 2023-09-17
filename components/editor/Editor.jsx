@@ -1,4 +1,7 @@
-import ReactQuill from "react-quill";
+import ReactQuill, { Quill } from "react-quill";
+import "react-quill/dist/quill.snow.css";
+import ImageResize from "quill-image-resize-module-react";
+Quill.register("modules/imageResize", ImageResize);
 
 const Editor = ({ value, setContent, setErrorField }) => {
   const modules = {
@@ -17,6 +20,10 @@ const Editor = ({ value, setContent, setErrorField }) => {
       [{ color: [] }],
       ["clean"],
     ],
+    imageResize: {
+      parchment: Quill.import("parchment"),
+      modules: ["Resize", "DisplaySize"],
+    },
   };
   const formats = [
     "header",
