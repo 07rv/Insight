@@ -48,25 +48,25 @@ const Pagination = ({
 
   return (
     <>
-      <div class="h-80 relative">
-        <div class="relative overflow-x-auto">
-          <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+      <div className="h-80 relative">
+        <div className="relative overflow-x-auto">
+          <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
             <tbody>
               {displayedData.map((result, key) => (
                 <tr
                   key={key}
-                  class="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
+                  className="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
                 >
                   <th
                     scope="row"
                     onClick={() => {
                       redirection(result._id);
                     }}
-                    class="cursor-pointer px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                    className="cursor-pointer px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
                   >
                     {result.title}
                   </th>
-                  <td class="px-6 py-4 cursor-pointer">
+                  <td className="px-6 py-4 cursor-pointer">
                     <div className="relative h-5 w-5 flex-shrink-0">
                       <div
                         onClick={() => {

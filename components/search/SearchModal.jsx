@@ -38,20 +38,20 @@ const SearchModal = ({ openSearchMenu, setOpenSearchMenu, data }) => {
     <>
       {openSearchMenu && (
         <div className="justify-center top-0 flex fixed z-50 w-full p-4 overflow-x-hidden overflow-y-auto  inset-0  outline-none focus:outline-none">
-          <div class="relative w-full max-w-2xl max-h-full">
-            <div class="searchmodal relative bg-white rounded-lg shadow dark:bg-gray-700">
-              <div class="flex items-start justify-between p-4 border-b rounded-t dark:border-gray-600">
-                <form class="w-full">
+          <div className="relative w-full max-w-2xl max-h-full">
+            <div className="searchmodal relative bg-white rounded-lg shadow dark:bg-gray-700">
+              <div className="flex items-start justify-between p-4 border-b rounded-t dark:border-gray-600">
+                <form className="w-full">
                   <label
                     for="default-search"
-                    class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white"
+                    className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white"
                   >
                     Search
                   </label>
-                  <div class="relative">
-                    <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                  <div className="relative">
+                    <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
                       <svg
-                        class="w-4 h-4 text-gray-500 dark:text-gray-400"
+                        className="w-4 h-4 text-gray-500 dark:text-gray-400"
                         aria-hidden="true"
                         xmlns="http://www.w3.org/2000/svg"
                         fill="none"
@@ -69,7 +69,7 @@ const SearchModal = ({ openSearchMenu, setOpenSearchMenu, data }) => {
                     <input
                       type="search"
                       id="search"
-                      class="block w-full p-2 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white"
+                      className="block w-full p-2 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white"
                       placeholder="Search..."
                       required
                       defaultValue={inputSearch}
@@ -85,11 +85,11 @@ const SearchModal = ({ openSearchMenu, setOpenSearchMenu, data }) => {
                     setOpenSearchMenu(false);
                   }}
                   type="button"
-                  class=" text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ml-3 inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
+                  className=" text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ml-3 inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
                   data-modal-hide="defaultModal"
                 >
                   <svg
-                    class="w-3 h-3"
+                    className="w-3 h-3"
                     aria-hidden="true"
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
@@ -103,10 +103,10 @@ const SearchModal = ({ openSearchMenu, setOpenSearchMenu, data }) => {
                       d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"
                     />
                   </svg>
-                  <span class="sr-only">Close modal</span>
+                  <span className="sr-only">Close modal</span>
                 </button>
               </div>
-              <div class="p-6 space-y-6">
+              <div className="p-6 space-y-6">
                 <SearchResult
                   setOpenSearchMenu={setOpenSearchMenu}
                   results={results}
@@ -114,14 +114,14 @@ const SearchModal = ({ openSearchMenu, setOpenSearchMenu, data }) => {
                   setResults={setResults}
                 />
               </div>
-              <div class="flex items-center p-6 space-x-2 border-t border-gray-200 rounded-b dark:border-gray-600">
+              <div className="flex items-center p-6 space-x-2 border-t border-gray-200 rounded-b dark:border-gray-600">
                 <button
                   onClick={(e) => {
                     setOpenSearchMenu(false);
                   }}
                   data-modal-hide="defaultModal"
                   type="button"
-                  class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600"
+                  className="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600"
                 >
                   Close
                 </button>
