@@ -22,7 +22,7 @@ const Editor = ({ value, setContent, setErrorField }) => {
     ],
     imageResize: {
       parchment: Quill.import("parchment"),
-      modules: ["Resize", "DisplaySize"],
+      modules: ["Resize", "DisplaySize", "Toolbar"],
     },
   };
   const formats = [
