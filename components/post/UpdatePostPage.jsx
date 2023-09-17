@@ -69,7 +69,7 @@ const UpdatePostPage = ({ options }) => {
   };
 
   const submitButton = async () => {
-    isLoadingSubmit(true);
+    setIsLoadingSubmit(true);
     if (!checkAndSetValidationsErrors()) {
       console.log(title, category);
       await fetch("/api/post", {
@@ -86,14 +86,14 @@ const UpdatePostPage = ({ options }) => {
         .then((res) => res.json())
         .then((data) => {
           if (data.status == 1) {
-            isLoadingSubmit(false);
+            setIsLoadingSubmit(false);
             router.push(`/post/${id}`);
           } else {
-            isLoadingSubmit(false);
+            setIsLoadingSubmit(false);
           }
         });
     }
-    isLoadingSubmit(false);
+    setIsLoadingSubmit(false);
   };
   return (
     <>
