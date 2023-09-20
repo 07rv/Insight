@@ -1,7 +1,10 @@
 import ReactQuill, { Quill } from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import ImageResize from "quill-image-resize-module-react";
+const CodeBlock = Quill.import("formats/code-block");
+
 Quill.register("modules/imageResize", ImageResize);
+Quill.register(CodeBlock, true);
 
 const Editor = ({ value, setContent, setErrorField }) => {
   const modules = {
@@ -19,6 +22,7 @@ const Editor = ({ value, setContent, setErrorField }) => {
       ["link", "image", "video"],
       [{ color: [] }],
       ["clean"],
+      ["code-block"],
     ],
     imageResize: {
       parchment: Quill.import("parchment"),
@@ -26,6 +30,7 @@ const Editor = ({ value, setContent, setErrorField }) => {
     },
   };
   const formats = [
+    "code-block",
     "header",
     "font",
     "bold",
